@@ -6,4 +6,4 @@
 
 <u>/register</u>
 
-![register](register.png)
+<img src="register.png" alt="register" style="zoom: 50%;" />
