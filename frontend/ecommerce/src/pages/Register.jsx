@@ -1,4 +1,6 @@
+import { useRef, useState } from "react";
 import styled from "styled-components"
+import FormInput from "../components/FormInput";
 
 const Container = styled.div`
     width: 100vw;
@@ -16,13 +18,6 @@ const Form = styled.form`
     display: flex;
     flex-wrap: wrap;
 `;
-const Input = styled.input`
-    flex: 1;
-    min-width: 40%;
-    margin: 20px 10px 0px 10px;
-    padding: 10px;
-`;
-
 const Title = styled.h1`
     font-size: 24px;
     font-weight: 300;
@@ -41,25 +36,115 @@ const Button = styled.button`
 `;
 
 const Register = () => {
-  return (
-    <Container>
-        <Wrapper>
-            <Title>CREATE AN ACCOUNT</Title>
-            <Form>
-                <Input placeholder="First name"/>
-                <Input placeholder="Last name"/>
-                <Input placeholder="username"/>
-                <Input placeholder="email"/>
-                <Input type="password" placeholder="password"/>
-                <Input type="password" placeholder="confirm password"/>
-                <Agreement>
-                    By creating an account, I consent to the processing of my personal data in accordance with the <b>PRIVACY POLICY</b>
-                </Agreement>
-                <Button>CREATE</Button>
-            </Form>
-        </Wrapper>
-    </Container>
-  )
+    // use useRef to avoid re-rendering
+    const firstnameRef = useRef();
+    const lastnameRef = useRef();
+    const usernameRef = useRef();
+    const emailRef = useRef();
+    const passwordRef = useRef();
+    const confirmRef = useRef();
+
+    const [values, setValues] = useState({   // use JSON object instead of use useState hook multiple times
+        firstname: "",
+        lastname: "",
+        username: "",
+        email: "",
+        password: "",
+        confirmedPassword: ""
+    });
+
+    // Handle multiple inputs
+    const inputs = [
+        {
+            id: 1,
+            name: "username",
+            type: "text",
+            placeholder: "Username",
+            refer: usernameRef,
+            label: "Username",
+            pattern: "^[A-Za-z0-9]{3,16}$",
+            errorMessage: "Username should be 3-16 characters and should't include any special character!",
+            required: true,
+        },
+        {
+            id: 2,
+            name: "firstname",
+            type: "text",
+            placeholder: "First name",
+            refer: firstnameRef,
+            label: "First name",
+            required: true,
+        },
+        {
+            id: 3,
+            name: "lastname",
+            type: "text",
+            placeholder: "Last name",
+            refer: lastnameRef,
+            label: "Last name",
+            required: true,
+        },
+        {
+            id: 4,
+            name: "email",
+            type: "email",
+            placeholder: "Email",
+            refer: emailRef,
+            label: "Email",
+            errorMessage: "Invalid email address!",
+            required: true,
+        },
+        {
+            id: 5,
+            name: "password",
+            type: "password",
+            placeholder: "Last name",
+            refer: passwordRef,
+            label: "Password",
+            pattern: "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$",
+            errorMessage: "Password should be 8-20 characters and include at least one number and one character and one special character",
+            required: true,
+        },
+        {
+            id: 6,
+            name: "confirmedPassword",
+            type: "password",
+            placeholder: "Confirm password",
+            refer: confirmRef,
+            label: "Confirmed Password",
+            pattern: values.password,
+            errorMessage: "Password not match!",
+            required: true,
+        },
+     ];
+
+    const onChange = (e) => {
+        setValues({...values, [e.target.name]: e.target.value})
+    }
+
+    // Handle submit
+    const handleSubmit = (e) =>{
+        e.preventDefault();  // prevent refresh the page by default
+        const data = new FormData(e.target);
+        console.log(Object.fromEntries(data.entries()));   // print the form data
+    }
+
+    return (
+        <Container>
+            <Wrapper>
+                <Title>CREATE AN ACCOUNT</Title>
+                <Form onSubmit={handleSubmit}>
+                    {inputs.map((input)=>(
+                        <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange}/>
+                    ))}
+                    <Agreement>
+                        By creating an account, I consent to the processing of my personal data in accordance with the <b>PRIVACY POLICY</b>
+                    </Agreement>
+                    <Button type="submit">CREATE</Button>
+                </Form>
+            </Wrapper>
+        </Container>
+    )
 }
 
 export default Register
