@@ -11,10 +11,6 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 const Container = styled.div`
     display: flex;
     background-color: #F7F1F1;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
 `;
 // Left section
 const Left = styled.div`

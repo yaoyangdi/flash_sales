@@ -1,11 +1,15 @@
+import styled from "styled-components"
 
+const Container = styled.div`
+    min-height: 100vh;
+`
 const Home = () => {
   return (
-    <div>
+    <Container>
         <br></br>
         This is the Home page
         <br></br> 
-    </div>
+    </Container>
   )
 }
 
