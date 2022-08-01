@@ -1,5 +1,6 @@
 package com.example.flashsales.service;
 
+import com.example.flashsales.exception.ResourceNotFoundException;
 import com.example.flashsales.model.User;
 import com.example.flashsales.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
