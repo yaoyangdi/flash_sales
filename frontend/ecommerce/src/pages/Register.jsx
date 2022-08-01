@@ -133,7 +133,7 @@ const Register = () => {
         <Container>
             <Wrapper>
                 <Title>CREATE AN ACCOUNT</Title>
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit} >
                     {inputs.map((input)=>(
                         <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange}/>
                     ))}
