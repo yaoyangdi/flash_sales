@@ -142,7 +142,7 @@ const Register = () => {
                 <Title>CREATE AN ACCOUNT</Title>
                 <Form onSubmit={handleSubmit} >
                     {inputs.map((input)=>(
-                        <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange}/>
+                        <FormInput key={input.id} {...input} width="40%" value={values[input.name]} onChange={onChange}/>
                     ))}
                     <Agreement>
                         By creating an account, I consent to the processing of my personal data in accordance with the <b>PRIVACY POLICY</b>

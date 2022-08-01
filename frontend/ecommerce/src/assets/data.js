@@ -23,7 +23,7 @@ export const sliderItems = [
         title: "SCHOOL SEASON\n"+"UP to 70% OFF",
         desc: "GET SCHOLL READY WITH MORE SAVINGS!",
         img: school,
-        bg: "fcf1ed",
+        bg: "F7F1F1",
     }
 ]
 

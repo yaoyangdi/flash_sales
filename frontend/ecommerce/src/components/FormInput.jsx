@@ -8,7 +8,7 @@ const InputContainer = styled.label`
 
     margin: 10px 25px 0px 20px;
     color: gray;
-    width: 40%;
+    width:  ${props=>props.width};
     min-height: 40px;
 `;
 const Input = styled.input`
@@ -17,10 +17,7 @@ const Input = styled.input`
     font-size: 14px;
     height: 15px;
     width: 100%;
-    border: 2px solid black;
-    &:focus{
-        border: 2px solid red;
-    }
+
 
 `;
 const ErrorMessage = styled.span`
@@ -34,14 +31,14 @@ const ErrorMessage = styled.span`
 `;
 
 const FormInput = (props) => {
-  const {label, errorMessage, onChange, ...inputProps} = props;
+  const {label, errorMessage, onChange, width, ...inputProps} = props;
   const [blur, setBlur] = useState(true);
   const handleBlur = (e) => {
     setBlur(true);
     console.log(blur);
   }
   return (
-    <InputContainer>
+    <InputContainer width={width}>
         <Label>{label}</Label>
         <Input  {...inputProps} onChange={onChange} onBlur={handleBlur} focused={blur.toString()}></Input>
         <ErrorMessage>{errorMessage}</ErrorMessage>

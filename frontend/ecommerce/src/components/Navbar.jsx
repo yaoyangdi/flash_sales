@@ -5,12 +5,13 @@ import Badge from '@mui/material/Badge';
 
 const Container = styled.div`
     height: 70px;
-    background-color: #F7F1F1;
+    background-color: white;
 `;
 const Wrapper = styled.div`
     padding: 0px 30px;
     display: flex;
     align-items: center;
+
 `;
 
 const Left = styled.div`
