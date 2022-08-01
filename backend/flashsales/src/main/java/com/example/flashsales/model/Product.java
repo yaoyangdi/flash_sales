@@ -1,8 +1,8 @@
-package com.example.flash_sales.model;
+package com.example.flashsales.model;
 
 import lombok.Data;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 @Entity
 @Data

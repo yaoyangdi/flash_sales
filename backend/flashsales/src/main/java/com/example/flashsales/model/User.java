@@ -1,4 +1,4 @@
-package com.example.flash_sales.model;
+package com.example.flashsales.model;
 
 import lombok.Data;
 
@@ -14,14 +14,20 @@ public class User {
     @Column(name="user_id")
     private long id;
 
-    @Column(name = "user_username")
+    @Column(name = "username")
     private String username;
 
-    @Column(name = "user_firstname")
+    @Column(name = "firstname")
     private String firstname;
 
-    @Column(name = "user_lastname")
+    @Column(name = "lastname")
     private String lastname;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "password")
+    private String password;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="order_id")

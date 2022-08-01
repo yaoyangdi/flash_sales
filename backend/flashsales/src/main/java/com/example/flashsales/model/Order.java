@@ -1,4 +1,4 @@
-package com.example.flash_sales.model;
+package com.example.flashsales.model;
 
 import lombok.Data;
 
