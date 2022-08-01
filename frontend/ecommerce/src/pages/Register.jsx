@@ -126,7 +126,14 @@ const Register = () => {
     const handleSubmit = (e) =>{
         e.preventDefault();  // prevent refresh the page by default
         const data = new FormData(e.target);
-        console.log(Object.fromEntries(data.entries()));   // print the form data
+        
+        fetch("http://localhost:8080/api/user", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(Object.fromEntries(data.entries()))
+        }).then(()=>{
+            console.log("new account added")
+        })
     }
 
     return (
