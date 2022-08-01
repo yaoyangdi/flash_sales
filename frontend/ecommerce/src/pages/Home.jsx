@@ -1,15 +1,9 @@
-import styled from "styled-components"
-
-const Container = styled.div`
-    min-height: 100vh;
-`
+import Slider from "../components/Slider"
 const Home = () => {
   return (
-    <Container>
-        <br></br>
-        This is the Home page
-        <br></br> 
-    </Container>
+    <div>
+        <Slider/>
+    </div>
   )
 }
 
