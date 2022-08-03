@@ -9,7 +9,10 @@ const Container = styled.div`
     width: 100%;
     background-color: ${props => props.color};
     margin:0px 10px;
-
+    cursor: pointer;
+    &:hover{
+        background-color: #facf19; 
+    }
 `;
 const DatetimeContainer = styled.div`
     display: flex;
@@ -42,13 +45,14 @@ const TimerBlock = styled.span`
 `;
 
 
-const Countdown = ({endTime, status}) => {
+const Countdown = ({startTime, endTime}) => {
     const [days, setDays] = useState("00");
     const [hours, setHours] = useState("00");
     const [minutes, setMinutes] = useState("00");
     const [seconds, setSeconds] = useState("00");
+    const [status, setStatus ] = useState(0);
 
-    let dateComponents = endTime.split('T');
+    let dateComponents = startTime.split('T');
     let datePieces = dateComponents[0].split("-");
     let timePieces = dateComponents[1].split(":");
 
@@ -59,10 +63,17 @@ const Countdown = ({endTime, status}) => {
     let interval = useRef();
     const startTimer = () => {
         let countdownDate = new Date(endTime);
+        let start_time = new Date(startTime).getTime();
+        const curr = new Date().getTime();
+
+        if(status !== 1){
+            if ( ( curr - start_time) >= 0 ){
+                setStatus(1);   
+            }
+        }
+
         interval = setInterval(()=>{
-            const now = new Date().getTime();
-            const distance = countdownDate - now;
-            console.log(distance);
+            const distance = countdownDate - curr;
 
             // Time calculations for days, hours, minutes and seconds
             var days = Math.floor(distance / (1000 * 60 * 60 * 24));

@@ -1,3 +1,4 @@
+import { Link } from "@mui/material";
 import styled from "styled-components"
 import { flashsales } from "../assets/data.js";
 import Countdown from "./Countdown.jsx";
@@ -25,8 +26,10 @@ const Flashsale = () => {
     <Container>
       <Title>Flash Sales</Title>
       <CountdownContainer>
-        {flashsales.map((flashsale) => (
-                <Countdown endTime={flashsale.endTime} status={flashsale.status}/>
+        {flashsales.map((flashsale, index) => (
+                 <Countdown startTime={flashsale.startTime} endTime={flashsale.endTime} status={flashsale.status}/>
+
+               
             ))}
       </CountdownContainer>
         {flashsales.length < 2  ? flashsales.map((flashsale) => {
