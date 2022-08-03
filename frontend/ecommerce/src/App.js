@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Login from './pages/Login';
 import Register from './pages/Register';
 import NewFlashSale from './pages/NewFlashSale';
+import Product from './pages/Product';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/register" element = {<Register/>} />
           <Route path="/login" element = {<Login/>} />
           <Route path="/flashsales" element = {<NewFlashSale/>}/>
+          <Route path="/product" element={<Product/>}/>
         </Routes>
         <Footer/>
       </Router>
