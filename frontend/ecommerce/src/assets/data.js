@@ -28,53 +28,136 @@ export const sliderItems = [
 ]
 
 
-export const popularProducts = [
+export const flashsales = [
     {
-        id: 1,
-        img:hoodie1,
-        title: "Men Cartoon & Slogan Graphic Kangaroo Pocket Thermal Lined Drawstring Hoodie",
-        price: 21.95
+        "id": 1,
+        "status": 1,
+        "startTime": "2022-08-05T13:30:00.000+00:00",
+        "endTime": "2022-08-05T17:00:00.000+00:00",
+        "totalStock": 70,
+        "availableStock": 0,
+        "lock_stock": 0,
+        "products": [{
+            id: 1,
+            img:hoodie1,
+            title: "Men Cartoon & Slogan Graphic Kangaroo Pocket Thermal Lined Drawstring Hoodie",
+            prev_price: 59.95,
+            price: 21.95
+        },
+        {
+            id: 2,
+            img: sweatshirt1,
+            title: "Men Bear Print Thermal Lined Sweatshirt",
+            prev_price: 68.95,
+            price: 25.95
+        },
+        {
+            id: 3,
+            img: sweatshirt2,
+            title: "ROMWE Guys Cartoon Bear Graphic Sweatshirt",
+            prev_price: 60.95,
+            price: 21.95
+        },
+        {
+            id: 4,
+            img: sweatshirt3,
+            title: "Men Cartoon Face Print Sweatshirt",
+            prev_price: 99.95,
+            price: 50.95
+        },
+        {
+            id: 5,
+            img: sweatshirt4,
+            title: "Men Letter Graphic Thermal Lined Sweatshirt",
+            prev_price: 45.95,
+            price: 18.95,
+        },
+        {
+            id: 6,
+            img: sweatshirt5,
+            title: "Men Playing Card Print Sweatshirt",
+            prev_price: 60.95,
+            price: 21.95
+        },
+        {
+            id: 7,
+            img: jacket1,
+            title: "Men 1pc Striped Drawstring Hooded 2 In 1 Jacket",
+            prev_price: 60.95,
+            price: 23.95,
+        },
+        {
+            id: 8,
+            img: jacket2,
+            title: "Men Letter Patch Detail Two Tone Bomber Jacket",
+            prev_price: 60.95,
+            price: 35.95,
+        }]
     },
     {
-        id: 2,
-        img: sweatshirt1,
-        title: "Men Bear Print Thermal Lined Sweatshirt",
-        price: 25.95
+        "id": 2,
+        "status": 0,
+        "startTime": "2022-08-05T13:30:00.000+00:00",
+        "endTime": "2022-08-05T17:00:00.000+00:00",
+        "totalStock": 70,
+        "availableStock": 0,
+        "lock_stock": 0,
+        "products": [{
+            id: 1,
+            img:hoodie1,
+            title: "Men Cartoon & Slogan Graphic Kangaroo Pocket Thermal Lined Drawstring Hoodie",
+            prev_price: 59.95,
+            price: 21.95
+        },
+        {
+            id: 2,
+            img: sweatshirt1,
+            title: "Men Bear Print Thermal Lined Sweatshirt",
+            prev_price: 68.95,
+            price: 25.95
+        },
+        {
+            id: 3,
+            img: sweatshirt2,
+            title: "ROMWE Guys Cartoon Bear Graphic Sweatshirt",
+            prev_price: 60.95,
+            price: 21.95
+        },
+        {
+            id: 4,
+            img: sweatshirt3,
+            title: "Men Cartoon Face Print Sweatshirt",
+            prev_price: 99.95,
+            price: 50.95
+        },
+        {
+            id: 5,
+            img: sweatshirt4,
+            title: "Men Letter Graphic Thermal Lined Sweatshirt",
+            prev_price: 45.95,
+            price: 18.95,
+        },
+        {
+            id: 6,
+            img: sweatshirt5,
+            title: "Men Playing Card Print Sweatshirt",
+            prev_price: 60.95,
+            price: 21.95
+        },
+        {
+            id: 7,
+            img: jacket1,
+            title: "Men 1pc Striped Drawstring Hooded 2 In 1 Jacket",
+            prev_price: 60.95,
+            price: 23.95,
+        },
+        {
+            id: 8,
+            img: jacket2,
+            title: "Men Letter Patch Detail Two Tone Bomber Jacket",
+            prev_price: 60.95,
+            price: 35.95,
+        }]
     },
-    {
-        id: 3,
-        img: sweatshirt2,
-        title: "ROMWE Guys Cartoon Bear Graphic Sweatshirt",
-        price: 21.95
-    },
-    {
-        id: 4,
-        img: sweatshirt3,
-        title: "Men Cartoon Face Print Sweatshirt",
-        price: 21.95
-    },
-    {
-        id: 5,
-        img: sweatshirt4,
-        title: "Men Letter Graphic Thermal Lined Sweatshirt",
-        price: 18.95,
-    },
-    {
-        id: 6,
-        img: sweatshirt5,
-        title: "Men Playing Card Print Sweatshirt",
-        price: 21.95
-    },
-    {
-        id: 7,
-        img: jacket1,
-        title: "Men 1pc Striped Drawstring Hooded 2 In 1 Jacket",
-        price: 23.95,
-    },
-    {
-        id: 8,
-        img: jacket2,
-        title: "Men Letter Patch Detail Two Tone Bomber Jacket",
-        price: 35.95,
-    }
+
 ]
