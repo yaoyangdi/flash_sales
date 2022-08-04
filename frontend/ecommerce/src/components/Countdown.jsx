@@ -45,7 +45,7 @@ const TimerBlock = styled.span`
 `;
 
 
-const Countdown = ({startTime, endTime}) => {
+const Countdown = ({key , handleClick, startTime, endTime}) => {
     const [days, setDays] = useState("00");
     const [hours, setHours] = useState("00");
     const [minutes, setMinutes] = useState("00");
@@ -100,9 +100,9 @@ const Countdown = ({startTime, endTime}) => {
         return ()=>{
             clearInterval(interval.current);
         }
-    })
+    });
   return (
-    <Container color={status===1 ? "#facf19" : "rgba(250,207,25,.6)"}>
+    <Container color={status===1 ? "#facf19" : "rgba(250,207,25,.6)"} onClick={()=>handleClick(key)}>
             <DatetimeContainer>
                 <EndTime>{timePieces[0]+":"+timePieces[1]}</EndTime>
                 <EndDate>{datePieces[1]+"/"+datePieces[2]}</EndDate>
