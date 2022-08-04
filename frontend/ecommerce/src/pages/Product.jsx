@@ -118,7 +118,13 @@ const Product = ({}) => {
     }
   }
   const onAddToCart = () => {
-    console.log(size.value);
+    fetch("http://localhost:8080/api/user", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(Object.fromEntries({...product, "qty": amount, "size": size.value}))
+    }).then(()=>{
+        console.log("already add to cart")
+    })
   } 
   return (
     <Container>

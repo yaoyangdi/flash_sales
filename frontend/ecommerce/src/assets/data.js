@@ -101,7 +101,7 @@ export const flashsales = [
     },
     {
         "id": 1,
-        "status": 0,
+        "status": 1,
         "startTime": "2022-08-05T13:30:00.000+00:00",
         "endTime": "2022-08-05T17:00:00.000+00:00",
         "totalStock": 70,

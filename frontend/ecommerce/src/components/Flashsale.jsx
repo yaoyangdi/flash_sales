@@ -32,6 +32,9 @@ const Flashsale = () => {
         }
     }
 
+let start_time = new Date(flashsales[id].startTime).getTime();
+const curr = new Date().getTime();
+
 
   return (
     <Container>
@@ -55,9 +58,10 @@ const Flashsale = () => {
 
       <Products>
         {
+            ( ( curr - start_time) >= 0 ) ?
             flashsales[id].products.map((prod)=>(
                 <Product prod={prod} key={prod.id}/>
-            ))
+            )) : null
         }
       </Products>
 
