@@ -8,6 +8,7 @@ import Register from './pages/Register';
 import NewFlashSale from './pages/NewFlashSale';
 import Product from './pages/Product';
 import Notfound from './pages/Notfound';
+import Cart from './pages/Cart';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/login" element = {<Login/>} />
           <Route path="/flashsales" element = {<NewFlashSale/>}/>
           <Route path="/product/:id" element={<Product/>}/>
+          <Route path="/cart" element={<Cart/>}/>
           <Route path="*" element={<Notfound/>}/>
         </Routes>
         <Footer/>
