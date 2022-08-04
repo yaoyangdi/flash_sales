@@ -9,9 +9,9 @@ const Container = styled.div`
     width: 100%;
     background-color: ${props => props.color};
     margin:0px 10px;
-    cursor: pointer;
+    cursor: ${props => props.cursor};
     &:hover{
-        background-color: #facf19; 
+        background-color: ${props => props.hover}; 
     }
 `;
 const DatetimeContainer = styled.div`
@@ -45,12 +45,12 @@ const TimerBlock = styled.span`
 `;
 
 
-const Countdown = ({key , handleClick, startTime, endTime}) => {
+const Countdown = ({id , handleClick, startTime, endTime}) => {
     const [days, setDays] = useState("00");
     const [hours, setHours] = useState("00");
     const [minutes, setMinutes] = useState("00");
     const [seconds, setSeconds] = useState("00");
-    const [status, setStatus ] = useState(0);
+    const [start_status, setStartstatus ] = useState(0);
 
     let dateComponents = startTime.split('T');
     let datePieces = dateComponents[0].split("-");
@@ -66,13 +66,13 @@ const Countdown = ({key , handleClick, startTime, endTime}) => {
         let start_time = new Date(startTime).getTime();
         const curr = new Date().getTime();
 
-        if(status !== 1){
+        if(start_status !== 1){
             if ( ( curr - start_time) >= 0 ){
-                setStatus(1);   
+                setStartstatus(1);   
             }
         }
 
-        interval = setInterval(()=>{
+        interval.current = setInterval(()=>{
             const distance = countdownDate - curr;
 
             // Time calculations for days, hours, minutes and seconds
@@ -102,23 +102,24 @@ const Countdown = ({key , handleClick, startTime, endTime}) => {
         }
     });
   return (
-    <Container color={status===1 ? "#facf19" : "rgba(250,207,25,.6)"} onClick={()=>handleClick(key)}>
+    <Container color={start_status===1 ? "#facf19" : "rgba(250,207,25,.6)"} hover={start_status===1 ? "#facf19" : "rgba(250,207,25,.6)"} cursor= {start_status===1 ? "pointer" : "auto"} onClick={()=>handleClick(id)}>
             <DatetimeContainer>
                 <EndTime>{timePieces[0]+":"+timePieces[1]}</EndTime>
                 <EndDate>{datePieces[1]+"/"+datePieces[2]}</EndDate>
             </DatetimeContainer>
             {
-                status === 1 ? (
-                    <Timer size="16px">
-                        ENDS IN
-                        <TimerBlock>{days}</TimerBlock>
-                        <span style={{marginLeft:"2px"}}>Day</span> 
-                        <TimerBlock>{hours}</TimerBlock>:
-                        <TimerBlock>{minutes}</TimerBlock>:
-                        <TimerBlock>{seconds}</TimerBlock>
-                    </Timer>
-                ) : (
-                    <Timer size="20px"> Coming Soon</Timer>
+                (start_status === 1 ? (
+                        <Timer size="16px">
+                            ENDS IN
+                            <TimerBlock>{days}</TimerBlock>
+                            <span style={{marginLeft:"2px"}}>Day</span> 
+                            <TimerBlock>{hours}</TimerBlock>:
+                            <TimerBlock>{minutes}</TimerBlock>:
+                            <TimerBlock>{seconds}</TimerBlock>
+                        </Timer>
+                    ) : (
+                        <Timer size="20px"> Coming Soon</Timer>
+                    ) 
                 )
             }
 

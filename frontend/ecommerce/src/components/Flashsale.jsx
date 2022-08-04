@@ -1,19 +1,23 @@
 import {useEffect, useRef,  useState } from "react";
 import styled from "styled-components"
 import { flashsales } from "../assets/data.js";
+import Countdown from "./Countdown.jsx";
 import Product from "./Product";
 
 const Container = styled.div`
     padding: 0px 30px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
 `;
 const Title = styled.h1`
     font-size: 50px;
     width: 100%;
     text-align: start;
 `; 
+const Products = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+`;
 
 const CountdownContainer = styled.div`
     display: flex;
@@ -21,154 +25,45 @@ const CountdownContainer = styled.div`
 `;
 
 const Flashsale = () => {
-    const [id, setId] = useState(1);
+    const [id, setId] = useState(0);
     const handleClick =()=> (e) => {
-        setId(e);
-        console.log(e);
+        if(flashsales[e].status === 1){
+            setId(e);
+        }
     }
+
 
   return (
     <Container>
       <Title>Flash Sales</Title>
       <CountdownContainer>
         {flashsales.map((flashsale) => (
-                 <Countdown handleClick={handleClick()} key={flashsale.id} startTime={flashsale.startTime} endTime={flashsale.endTime}/>
+            flashsale.status === 1 
+            ? (
+                <Countdown handleClick={handleClick()} 
+                key={flashsale.id} 
+                id={flashsale.id} 
+                startTime={flashsale.startTime} 
+                endTime={flashsale.endTime}/>
+                )
+            : (
+                null
+            )
+                 
             ))}
       </CountdownContainer>
 
+      <Products>
         {
             flashsales[id].products.map((prod)=>(
                 <Product prod={prod} key={prod.id}/>
             ))
         }
+      </Products>
+
     </Container>
   )
 }
 
-
-
-const _Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    background-color: ${props => props.color};
-    margin:0px 10px;
-    cursor: pointer;
-    &:hover{
-        background-color: #facf19; 
-    }
-`;
-const DatetimeContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
-
-const EndTime = styled.div`
-    font-size: 30px;
-    font-weight: 700;
-`;
-
-const EndDate = styled.div`
-    padding: 10px;
-    font-size: 23px;
-`;
-
-const Timer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: ${props => props.size};
-    padding-bottom: 10px;
-`;
-const TimerBlock = styled.span`
-    margin-left: 4px;
-    padding: 3px;
-    color: white;
-    background-color: black;
-`;
-
-const Countdown = ({key , handleClick, startTime, endTime}) => {
-    const [days, setDays] = useState("00");
-    const [hours, setHours] = useState("00");
-    const [minutes, setMinutes] = useState("00");
-    const [seconds, setSeconds] = useState("00");
-    const [status, setStatus ] = useState(0);
-
-    let dateComponents = startTime.split('T');
-    let datePieces = dateComponents[0].split("-");
-    let timePieces = dateComponents[1].split(":");
-
-    function pad(d) {
-        return (d < 10) ? '0' + d.toString() : d.toString();
-    }
-
-    let interval = useRef();
-    const startTimer = () => {
-        let countdownDate = new Date(endTime);
-        let start_time = new Date(startTime).getTime();
-        const curr = new Date().getTime();
-
-        if(status !== 1){
-            if ( ( curr - start_time) >= 0 ){
-                setStatus(1);   
-            }
-        }
-
-        interval = setInterval(()=>{
-            const distance = countdownDate - curr;
-
-            // Time calculations for days, hours, minutes and seconds
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-          
-
-            if (distance < 0){
-                // Stop timer
-                clearInterval(interval.current);
-            } else {
-                // Update timer
-                setDays(pad(days));
-                setHours(pad(hours));
-                setMinutes(pad(minutes));
-                setSeconds(pad(seconds));
-            }
-        }, 1000)
-    }
-    //componentDidMount
-    useEffect(()=>{
-        startTimer();
-        return ()=>{
-            clearInterval(interval.current);
-        }
-    });
-  return (
-    <_Container color={status===1 ? "#facf19" : "rgba(250,207,25,.6)"} onClick={()=>handleClick(key)}>
-            <DatetimeContainer>
-                <EndTime>{timePieces[0]+":"+timePieces[1]}</EndTime>
-                <EndDate>{datePieces[1]+"/"+datePieces[2]}</EndDate>
-            </DatetimeContainer>
-            {
-                status === 1 ? (
-                    <Timer size="16px">
-                        ENDS IN
-                        <TimerBlock>{days}</TimerBlock>
-                        <span style={{marginLeft:"2px"}}>Day</span> 
-                        <TimerBlock>{hours}</TimerBlock>:
-                        <TimerBlock>{minutes}</TimerBlock>:
-                        <TimerBlock>{seconds}</TimerBlock>
-                    </Timer>
-                ) : (
-                    <Timer size="20px"> Coming Soon</Timer>
-                )
-            }
-
-    </_Container>
-  )
-}
 
 export default Flashsale

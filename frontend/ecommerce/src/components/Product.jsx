@@ -5,19 +5,19 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import FlashOnIcon from '@mui/icons-material/FlashOn';
 
 const Container = styled.div`
-    flex:1;
     margin:15px;
-    min-width: 300px;
-    height:550px;
+    width: 300px;
+    height:350px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: start;
     position: relative;
+    margin-top: 30px;
 `;
 
 const Image = styled.img`
-    width: 100%;
+    width: 75%;
 
 `; 
 
@@ -95,8 +95,8 @@ const PrevPrice = styled.span`
 const Product = ({prod}) => {
   return (
     <Container>
-        <Image src={prod.img}/>
         <Discount><FlashOnIcon style={{fontSize: "25px"}}/>{-Math.round((prod.prev_price-prod.price)*100/prod.prev_price)}%</Discount>
+        <Image src={prod.img} />
         <Hover>
             <Icon>
                 <ShoppingCartOutlinedIcon/>
