@@ -79,9 +79,9 @@ const Navbar = () => {
                 </Left>
                 <Center><Logo href='/'>XYZ.</Logo></Center>
                 <Right>
-                    <MenuItem href='/register'>REGISTER</MenuItem>
-                    <MenuItem href='/login'>LOGIN</MenuItem>
-                    <MenuItem href='cart'>
+                    <MenuItem exact href='/register'>REGISTER</MenuItem>
+                    <MenuItem exact href='/login'>LOGIN</MenuItem>
+                    <MenuItem exact href='/cart'>
                         <Badge badgeContent={2} color="primary">
                             <ShoppingCartOutlinedIcon/>
                         </Badge>

@@ -25,8 +25,34 @@ export const sliderItems = [
         img: school,
         bg: "F7F1F1",
     }
-]
+];
 
+export const products = [
+    {
+        id: 1,
+        img:hoodie1,
+        title: "Men Cartoon & Slogan Graphic Kangaroo Pocket Thermal Lined Drawstring Hoodie",
+        price: 21.95,
+    },
+    {
+        id: 2,
+        img: sweatshirt1,
+        title: "Men Bear Print Thermal Lined Sweatshirt",
+        price: 25.95,
+    },
+    {
+        id: 3,
+        img: sweatshirt2,
+        title: "ROMWE Guys Cartoon Bear Graphic Sweatshirt",
+        price: 21.95,
+    },
+    {
+        id: 4,
+        img: sweatshirt3,
+        title: "Men Cartoon Face Print Sweatshirt",
+        price: 50.95,
+    }
+];
 
 export const flashsales = [
     {

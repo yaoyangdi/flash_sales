@@ -4,6 +4,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FlashOnIcon from '@mui/icons-material/FlashOn';
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
     margin:15px;
@@ -93,8 +94,9 @@ const PrevPrice = styled.span`
 `;
 
 const Product = ({prod}) => {
+    const navigate = useNavigate();
   return (
-    <Container>
+    <Container onClick={()=> navigate(`product/${prod.id}`)}>
         <Discount><FlashOnIcon style={{fontSize: "25px"}}/>{-Math.round((prod.prev_price-prod.price)*100/prod.prev_price)}%</Discount>
         <Image src={prod.img} />
         <Hover>

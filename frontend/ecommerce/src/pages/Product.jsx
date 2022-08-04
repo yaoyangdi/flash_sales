@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { useParams } from 'react-router-dom';
+import { products } from "../assets/data";
+import { useState } from 'react';
+
 const Container = styled.div`
 
 `;
@@ -98,21 +102,33 @@ const Button = styled.button`
 
 
 
-const Product = () => {
+const Product = ({}) => {
+  const params = useParams();
+  const id = params.id-1;
+  const product = products[id];
+  const [amount, setAmount] = useState(0);
+  const [size, setSize] = useState("");
+
+  const onInc = () => {
+    setAmount(amount+1)
+  }
+  const onDec = () => {
+    if (amount>0){
+      setAmount(amount-1)
+    }
+  }
+  const onAddToCart = () => {
+    console.log(size.value);
+  } 
   return (
     <Container>
       <Wrapper>
         <ImgContainer>
-          <Image />
+          <Image src={product.img}/>
         </ImgContainer>
         <InfoContainer>
-          <Title>Denim Jumpsuit</Title>
-          <Desc>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac sem ultrices, hendrerit mauris sit amet, facilisis nulla. Nulla auctor, sem a commodo consectetur, ipsum mauris hendrerit dui, a vulputate velit nibh ut metus. Ut in elementum arcu. 
-            Maecenas at mauris ut erat semper elementum et sit amet leo. Nullam vitae tortor lorem. Proin euismod nunc et elit finibus dapibus. Etiam diam erat, dictum a tortor in, feugiat placerat turpis. Phasellus id rhoncus lacus. Pellentesque at consectetur mi. 
-            Ut erat enim, malesuada ullamcorper viverra iaculis, semper vel purus. Cras tincidunt tristique sem vitae sollicitudin. Vestibulum quis ligula dolor. Donec in nibh felis. Nulla sit amet ligula at erat laoreet commodo ut in felis. Fusce justo tellus, porta ullamcorper efficitur sed, feugiat sed ligula.
-          </Desc>
-          <Price>$ 20</Price>
+          <Title>{product.title}</Title>
+          <Price>$ {product.price}</Price>
           <FilterContainer>
           <Filter>
             <FilterTitle>Color</FilterTitle>
@@ -122,24 +138,23 @@ const Product = () => {
           </Filter>
           <Filter>
             <FilterTitle>Size</FilterTitle>
-            <FilterSize>
-              <FilterSizeOption>XS</FilterSizeOption>
-              <FilterSizeOption>S</FilterSizeOption>
-              <FilterSizeOption>M</FilterSizeOption>
-              <FilterSizeOption>L</FilterSizeOption>
+            <FilterSize  ref={ (input)=> {setSize(input);}} >
+              <FilterSizeOption value="XS">XS</FilterSizeOption>
+              <FilterSizeOption value="S">S</FilterSizeOption>
+              <FilterSizeOption value="M">M</FilterSizeOption>
+              <FilterSizeOption value="L">L</FilterSizeOption>
             </FilterSize>
           </Filter>
         </FilterContainer>
         <AddContainer>
           <AmountContainer>
-            <RemoveIcon/>
-            <Amount>1</Amount>
-            <AddIcon/>
+            <RemoveIcon onClick={onDec} style={{cursor:"pointer"}}/>
+            <Amount>{amount}</Amount>
+            <AddIcon onClick={onInc} style={{cursor:"pointer"}}/>
           </AmountContainer>
-          <Button>ADD TO CART</Button>
+          <Button onClick={onAddToCart}>ADD TO CART</Button>
         </AddContainer>
         </InfoContainer>
-
       </Wrapper>
     </Container>
   )
