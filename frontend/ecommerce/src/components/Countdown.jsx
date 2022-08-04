@@ -7,12 +7,15 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
+    height: fit-content;
+    border-radius: 10px;
     background-color: ${props => props.color};
     margin:0px 10px;
     cursor: ${props => props.cursor};
     &:hover{
         background-color: ${props => props.hover}; 
     }
+
 `;
 const DatetimeContainer = styled.div`
     display: flex;

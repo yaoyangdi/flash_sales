@@ -34,36 +34,42 @@ export const flashsales = [
         "status": 1,
         "startTime": "2022-08-02T13:30:00.000+00:00",
         "endTime": "2022-08-05T17:00:00.000+00:00",
-        "totalStock": 70,
-        "availableStock": 0,
         "lock_stock": 0,
         "products": [{
             id: 1,
             img:hoodie1,
             title: "Men Cartoon & Slogan Graphic Kangaroo Pocket Thermal Lined Drawstring Hoodie",
             prev_price: 59.95,
-            price: 21.95
+            price: 21.95,
+            totalStock: 70,
+            availableStock: 10,
         },
         {
             id: 2,
             img: sweatshirt1,
             title: "Men Bear Print Thermal Lined Sweatshirt",
             prev_price: 68.95,
-            price: 25.95
+            price: 25.95,
+            totalStock: 70,
+            availableStock: 32,
         },
         {
             id: 3,
             img: sweatshirt2,
             title: "ROMWE Guys Cartoon Bear Graphic Sweatshirt",
             prev_price: 60.95,
-            price: 21.95
+            price: 21.95,
+            totalStock: 70,
+            availableStock: 54,
         },
         {
             id: 4,
             img: sweatshirt3,
             title: "Men Cartoon Face Print Sweatshirt",
             prev_price: 99.95,
-            price: 50.95
+            price: 50.95,
+            totalStock: 70,
+            availableStock: 64,
         },
     ]
     },
@@ -82,13 +88,17 @@ export const flashsales = [
             title: "Men Letter Graphic Thermal Lined Sweatshirt",
             prev_price: 45.95,
             price: 18.95,
+            totalStock: 70,
+            availableStock: 64,
         },
         {
             id: 6,
             img: sweatshirt5,
             title: "Men Playing Card Print Sweatshirt",
             prev_price: 60.95,
-            price: 21.95
+            price: 21.95,
+            totalStock: 70,
+            availableStock: 64,
         },
         {
             id: 7,
@@ -96,6 +106,8 @@ export const flashsales = [
             title: "Men 1pc Striped Drawstring Hooded 2 In 1 Jacket",
             prev_price: 60.95,
             price: 23.95,
+            totalStock: 70,
+            availableStock: 64,
         },
         {
             id: 8,
@@ -103,6 +115,8 @@ export const flashsales = [
             title: "Men Letter Patch Detail Two Tone Bomber Jacket",
             prev_price: 60.95,
             price: 35.95,
+            totalStock: 70,
+            availableStock: 64,
         }]
     },
 
