@@ -6,6 +6,7 @@ import com.example.flashsales.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -22,4 +23,11 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
+    @Override
+    public User signUpUser(HashMap<String, String> signupRequest) throws Exception {
+        return null;
+    }
+
+
 }

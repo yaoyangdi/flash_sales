@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/flashsale")
 @CrossOrigin
 public class FlashsaleController {
     @Autowired
     private FlashsaleService flashsaleService;
 
-    @GetMapping("/flashsale")
+    @GetMapping
     List<Flashsale> all() { return flashsaleService.getAllFlashsales();
     }
 
-    @PostMapping("/flashsale")
+    @PostMapping
     Flashsale newFlashsale(@RequestBody Flashsale flashsale) { return flashsaleService.addFlashsale(flashsale); }
 }
 

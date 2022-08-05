@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name="Users")
+@Table(name="USERS")
 public class User {
 
     @Id
@@ -29,8 +29,6 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="order_id")
+    @OneToOne(mappedBy = "user")
     private Order order;
-
 }
