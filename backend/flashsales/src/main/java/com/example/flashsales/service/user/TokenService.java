@@ -8,4 +8,7 @@ public interface TokenService {
     void saveConfirmationToken(AuthenticationToken authenticationToken);
 
     AuthenticationToken getToken(User user);
+
+    void authenticate(String token);
+    User getUser(String token);
 }
