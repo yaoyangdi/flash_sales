@@ -1,4 +1,4 @@
-package com.example.flashsales.service;
+package com.example.flashsales.service.flashsale;
 
 import com.example.flashsales.model.Flashsale;
 

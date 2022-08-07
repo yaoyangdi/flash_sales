@@ -1,5 +1,6 @@
 package com.example.flashsales.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -9,18 +10,12 @@ import java.util.Set;
 
 @Entity
 @Data
-@Table(name="Flashsale")
+@Table(name="FLASHSALES")
 public class Flashsale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "flashsale_id", nullable = false)
     private Long id;
-
-    @Column(name = "prevPrice", nullable = false, precision = 10, scale = 2)
-    private BigDecimal prevPrice;
-
-    @Column(name= "price", nullable = false, precision = 10, scale = 2)
-    private BigDecimal price;
 
     @Column(name="status", nullable = false)
     private int status = 0;     // 0: normal, 1: ready
@@ -33,16 +28,7 @@ public class Flashsale {
     @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
 
-    @Column(name = "totalStock", nullable = false)
-    private long totalStock;
-
-    @Column(name = "availableStock", nullable = false)
-    private long availableStock = totalStock;
-
-    @Column(name = "lockStock", nullable = false)
-    private long lock_stock = 0;
-
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn(name="prod_id")
-    private Set<Product> products;
+    @JsonIgnore
+    @OneToMany(mappedBy = "flashsale")
+    private Set<Flashsale_product> flashsale_products;
 }
