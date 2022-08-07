@@ -8,6 +8,19 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
 `;
+const LogoContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2sem;
+`;
+const Logo = styled.a`
+    margin: 10px 0px;
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+`;
 const Wrapper = styled.div`
     width: 25%;
     padding: 20px;
@@ -50,6 +63,9 @@ const Login = () => {
   return (
     <Container>
         <Wrapper>
+            <LogoContainer>
+                <Logo href="/" >XYZ.</Logo>
+            </LogoContainer>
             <Title>SIGN IN</Title>
             <Form>
                 <Input placeholder="username"/>

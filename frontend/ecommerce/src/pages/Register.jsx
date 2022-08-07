@@ -14,6 +14,19 @@ const Wrapper = styled.div`
     width: 40%;
     padding: 20px;
 `;
+const LogoContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2sem;
+`;
+const Logo = styled.a`
+    margin: 10px 0px;
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+`;
 const Form = styled.form`
     display: flex;
     flex-wrap: wrap;
@@ -139,6 +152,9 @@ const Register = () => {
     return (
         <Container>
             <Wrapper>
+                <LogoContainer>
+                    <Logo href="/" >XYZ.</Logo>
+                </LogoContainer>
                 <Title>CREATE AN ACCOUNT</Title>
                 <Form onSubmit={handleSubmit} >
                     {inputs.map((input)=>(

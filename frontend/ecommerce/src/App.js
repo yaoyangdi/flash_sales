@@ -9,23 +9,17 @@ import NewFlashSale from './pages/NewFlashSale';
 import Product from './pages/Product';
 import Notfound from './pages/Notfound';
 import Cart from './pages/Cart';
+import Index from './pages/app';
 
 function App() {
   return (
     <>
       <Router>
-        <Announcement/>
-        <Navbar/>
         <Routes>
-          <Route path="/" element = {<Home/>} />
           <Route path="/register" element = {<Register/>} />
           <Route path="/login" element = {<Login/>} />
-          <Route path="/flashsales" element = {<NewFlashSale/>}/>
-          <Route path="/product/:id" element={<Product/>}/>
-          <Route path="/cart" element={<Cart/>}/>
-          <Route path="*" element={<Notfound/>}/>
+          <Route path="*" element = {<Index/>} />
         </Routes>
-        <Footer/>
       </Router>
     </>
   );
