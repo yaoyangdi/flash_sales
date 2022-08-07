@@ -1,5 +1,6 @@
 package com.example.flashsales.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -27,6 +28,7 @@ public class Flashsale {
     @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "flashsale")
     private Set<Flashsale_product> flashsale_products;
 }

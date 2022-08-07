@@ -1,5 +1,6 @@
 package com.example.flashsales.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -8,11 +9,11 @@ import java.util.Set;
 
 @Entity
 @Data
-@Table(name="ORDERS")
-public class Order {
+@Table(name="CARTS")
+public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="order_id", nullable = false)
+    @Column(name="cart_id", nullable = false)
     private Long id;
 
     @Column(name = "created_at", nullable = false)
@@ -21,8 +22,9 @@ public class Order {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="user_id")
-    private User user;
+    private User cart_user;
 
-    @OneToMany(mappedBy="order")
-    private Set<Order_Product> order_products;
+    @JsonIgnore
+    @OneToMany(mappedBy="cart")
+    private Set<Cart_Product> cart_products;
 }

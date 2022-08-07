@@ -1,9 +1,7 @@
 package com.example.flashsales.controller;
 
 import com.example.flashsales.model.Flashsale;
-import com.example.flashsales.model.User;
-import com.example.flashsales.service.FlashsaleService;
-import com.example.flashsales.service.UserService;
+import com.example.flashsales.service.flashsale.FlashsaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

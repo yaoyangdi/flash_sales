@@ -1,13 +1,12 @@
 package com.example.flashsales.controller;
 
-import com.example.flashsales.exception.ResourceNotFoundException;
+import com.example.flashsales.dto.ResponseDto;
 import com.example.flashsales.model.User;
-import com.example.flashsales.service.UserService;
+import com.example.flashsales.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -20,6 +19,6 @@ public class UserController {
     List<User> all() { return userService.getAllUsers();
 }
 
-    @PostMapping
-    User newUser(@RequestBody User newUser) { return userService.addUser(newUser); }
+    @PostMapping("/signup")
+    public ResponseDto signup(@RequestBody User newUser) { return userService.signUp(newUser); }
 }

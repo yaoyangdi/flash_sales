@@ -1,13 +1,23 @@
 package com.example.flashsales.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Data
 @Table(name="USERS")
+@NoArgsConstructor
 public class User {
+    public User(String username, String firstname, String lastname, String email, String password) {
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,12 +33,17 @@ public class User {
     @Column(name = "lastname")
     private String lastname;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password",nullable = false)
     private String password;
 
-    @OneToOne(mappedBy = "user")
-    private Order order;
+    @JsonIgnore
+    @OneToOne(mappedBy = "cart_user")
+    private Cart order;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "token_user")
+    private AuthenticationToken token;
 }

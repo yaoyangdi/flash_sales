@@ -5,8 +5,8 @@ import java.util.Date;
 
 @Entity
 @Data
-@Table(name="ORDER_PRODUCTS")
-public class Order_Product {
+@Table(name="CART_PRODUCTS")
+public class Cart_Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "op_id", nullable = false)
@@ -24,6 +24,6 @@ public class Order_Product {
     private Product op_product;
 
     @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="order_id")
-    private Order order;
+    @JoinColumn(name="cart_id")
+    private Cart cart;
 }

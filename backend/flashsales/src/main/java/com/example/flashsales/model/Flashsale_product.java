@@ -37,6 +37,4 @@ public class Flashsale_product {
 
     @Column(name = "lock_stock", nullable = false)
     private long lock_stock = 0;
-
-
 }
