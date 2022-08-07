@@ -1,6 +1,8 @@
 package com.example.flashsales.service.user;
 
 import com.example.flashsales.dto.ResponseDto;
+import com.example.flashsales.dto.SignInResponseDto;
+import com.example.flashsales.dto.SigninDto;
 import com.example.flashsales.model.User;
 
 import javax.transaction.Transactional;
@@ -11,4 +13,6 @@ public interface UserService {
     public List<User> getAllUsers();
     @Transactional
     public ResponseDto signUp (User user);
+
+    SignInResponseDto signIn(SigninDto signinDto);
 }
