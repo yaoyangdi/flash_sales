@@ -13,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class AuthenticationToken {
     public AuthenticationToken(User user) {
-        this.token_user = user;
+        this.user = user;
         this.created_date = new Date();
         this.token = UUID.randomUUID().toString();
     }
@@ -30,7 +30,7 @@ public class AuthenticationToken {
 
     @OneToOne( cascade=CascadeType.ALL)
     @JoinColumn(nullable = false, name = "user_id")
-    private User token_user;
+    private User user;
 
 
 }

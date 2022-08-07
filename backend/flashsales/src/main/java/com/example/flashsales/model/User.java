@@ -43,7 +43,6 @@ public class User {
     @OneToOne(mappedBy = "cart_user")
     private Cart order;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "token_user")
+    @OneToOne(mappedBy = "user")
     private AuthenticationToken token;
 }

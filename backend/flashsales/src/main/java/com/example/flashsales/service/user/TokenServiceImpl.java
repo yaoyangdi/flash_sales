@@ -1,6 +1,7 @@
 package com.example.flashsales.service.user;
 
 import com.example.flashsales.model.AuthenticationToken;
+import com.example.flashsales.model.User;
 import com.example.flashsales.repository.TokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,5 +14,10 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public void saveConfirmationToken(AuthenticationToken authenticationToken) {
         tokenRepository.save(authenticationToken);
+    }
+
+    @Override
+    public AuthenticationToken getToken(User user) {
+        return tokenRepository.findByUser(user);
     }
 }
