@@ -5,10 +5,13 @@ import com.example.flashsales.exception.ProductNotExistsException;
 import com.example.flashsales.model.Product;
 import com.example.flashsales.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+@Service
 public class ProductServiceImpl implements ProductService{
     @Autowired
     ProductRepository productRepository;
@@ -39,6 +42,11 @@ public class ProductServiceImpl implements ProductService{
             throw new CustomException("product already exist");
         }
         return product;
+    }
+
+    @Override
+    public List<Product> getAll() {
+        return productRepository.findAll();
     }
 
 
