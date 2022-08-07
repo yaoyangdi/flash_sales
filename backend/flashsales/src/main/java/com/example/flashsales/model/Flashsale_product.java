@@ -10,6 +10,8 @@ import java.util.Set;
 @Data
 @Table(name="FLASHSALE_PRODUCTS")
 public class Flashsale_product {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "fp_id", nullable = false)

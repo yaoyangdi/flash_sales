@@ -12,6 +12,9 @@ import java.util.UUID;
 @Table(name = "TOKENS")
 @NoArgsConstructor
 public class AuthenticationToken {
+    /*
+    Constructor
+     */
     public AuthenticationToken(User user) {
         this.user = user;
         this.created_date = new Date();

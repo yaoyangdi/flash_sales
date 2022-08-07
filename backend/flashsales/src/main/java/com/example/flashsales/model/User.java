@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -40,9 +41,10 @@ public class User {
     private String password;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "cart_user")
-    private Cart order;
+    @OneToMany(mappedBy = "user")
+    private List<Cart_Product> cart_products;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "user")
     private AuthenticationToken token;
 }

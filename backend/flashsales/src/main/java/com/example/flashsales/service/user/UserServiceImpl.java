@@ -33,8 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseDto signUp(User user) {
-        // check if user is already exist
-        User byEmail = userRepository.findByEmail(user.getEmail());
+        // check if user already exists
         if ( Objects.nonNull(userRepository.findByEmail(user.getEmail())) ) {
             throw new CustomException("user already exist");
         }
