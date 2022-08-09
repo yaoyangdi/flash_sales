@@ -2,6 +2,7 @@ package com.example.flashsales.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -9,7 +10,15 @@ import java.math.BigDecimal;
 @Entity
 @Data
 @Table(name="PRODUCTS")
+@NoArgsConstructor
 public class Product {
+    public Product(String title, String description, BigDecimal price, String img_url) {
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.img_url = img_url;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "prod_id", nullable = false)
@@ -23,6 +32,9 @@ public class Product {
 
     @Column(name= "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
+
+    @Column(name= "img_url", nullable = false)
+    private String img_url;
 
     @JsonIgnore
     @OneToOne(mappedBy = "fp_product")   // Non-owning side mapped attributes
