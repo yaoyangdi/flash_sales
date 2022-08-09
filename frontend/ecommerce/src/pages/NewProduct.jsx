@@ -53,6 +53,7 @@ const NewProduct = () => {
         title: "",
         price: "",
         description: "",
+        image: undefined
     });
     const [errorMessage, setErrorMessage] = useState(null); 
     // Handle multiple inputs
@@ -69,7 +70,8 @@ const NewProduct = () => {
         {
             id: 2,
             name: "price",
-            type: "text",
+            type: "number",
+            step: "0.01",
             placeholder: "Price",
             refer: priceRef,
             label: "Price",
@@ -86,12 +88,12 @@ const NewProduct = () => {
         },
         {
             id: 4,
-            name: "picture",
+            name: "image",
             type: "file",
             placeholder: "Display picture",
             ref: DisplayPictureRef,
             label: "Display Picture",
-            required: false,
+            required: true,
         }
         ];
 
@@ -105,18 +107,22 @@ const NewProduct = () => {
         e.preventDefault();  // prevent refresh the page by default
         const data = new FormData(e.target);
         console.log(Object.fromEntries(data.entries()))
-        fetch("http://localhost:8080/product", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(Object.fromEntries(data.entries()))
-        }).then(
-            response => response.json(),
-            error => console.log('An error occurred.', error)
-        )
-        .then(
-            res => res.success ? onSuccessSubmit() : setErrorMessage(res.message)
-        )
+        try{
+            fetch("http://localhost:8080/product", {
+                method: "POST",
+                body: data
+            })
+            .then(
+                response => response.json(),
+            )
+            .then(
+                res => res.success ? onSuccessSubmit() : setErrorMessage(res.message)
+            )
         }
+         catch(err) {
+            console.log(err)
+        }
+    }
 
     const onSuccessSubmit = ()  => {
         setErrorMessage("");
@@ -124,6 +130,7 @@ const NewProduct = () => {
             title: "",
             price: "",
             description: "",
+            image: ""
         })
         alert('Product created successfully!');
     }
