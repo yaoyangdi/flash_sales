@@ -63,6 +63,7 @@ const FilterSize = styled.select`
   margin-left: 10px;
   padding: 5px;
 `;
+
 const FilterSizeOption = styled.option``;
 
 const AddContainer = styled.div`
@@ -100,8 +101,6 @@ const Button = styled.button`
   }
 `;
 
-
-
 const Product = ({}) => {
   const params = useParams();
   const id = params.id-1;
@@ -118,14 +117,16 @@ const Product = ({}) => {
     }
   }
   const onAddToCart = () => {
-    fetch("http://localhost:8080/api/user", {
+    fetch("http://localhost:8080/addToCart", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(Object.fromEntries({...product, "qty": amount, "size": size.value}))
-    }).then(()=>{
-        console.log("already add to cart")
+        body: JSON.stringify(Object.fromEntries({"productId": product.id, "qty": amount, "size": size.value}))
     })
-  } 
+    .then((response) => {
+      console.log(response); // returns empty string
+    })
+  }
+  
   return (
     <Container>
       <Wrapper>

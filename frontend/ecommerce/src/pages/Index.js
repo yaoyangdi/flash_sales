@@ -6,6 +6,7 @@ import Navbar from '../components/Navbar'
 import Cart from './Cart'
 import Home from './Home'
 import NewFlashSale from './NewFlashSale'
+import NewProduct from './NewProduct'
 import Notfound from './Notfound'
 import Product from './Product'
 
@@ -16,7 +17,8 @@ const Index = () => {
         <Navbar/>
         <Routes>
             <Route path="/" element = {<Home/>} />
-            <Route path="/flashsales" element = {<NewFlashSale/>}/>
+            <Route path="/newflashsale" element = {<NewFlashSale/>}/>
+            <Route path="/newproduct" element = {<NewProduct/>}/>
             <Route path="/product/:id" element={<Product/>}/>
             <Route path="/cart" element={<Cart/>}/>
             <Route path="*" element={<Notfound/>}/>
