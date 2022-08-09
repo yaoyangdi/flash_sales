@@ -2,8 +2,7 @@ import styled from 'styled-components';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { useParams } from 'react-router-dom';
-import { products } from "../assets/data";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Container = styled.div`
 
@@ -102,12 +101,35 @@ const Button = styled.button`
 `;
 
 const Product = ({}) => {
-  const params = useParams();
-  const id = params.id-1;
-  const product = products[id];
+
+  const [productList, setProductList] = useState(null);
   const [amount, setAmount] = useState(0);
   const [size, setSize] = useState("");
+  // GET request using fetch 
+  const fetchData =  () => fetch('http://localhost:8080/product/')
+  .then(response => response.json())
+  .then(data => {
+    const result = []
+    data.forEach((product)=> {
+      result.push(product);
+    })
+    setProductList(result);
+    // setProductList(data)  // store the product list
+  });
 
+  /* UseEffect (ComponentDidMount) */
+  useEffect(() => {
+    fetchData();
+  }, []); // empty dependency array means this effect will only run once (like componentDidMount in classes)
+
+
+  const params = useParams();
+  const id = params.id-1;
+  const product = productList!=null && productList[id];
+
+
+
+  /* Method for amount var */
   const onInc = () => {
     setAmount(amount+1)
   }
@@ -116,6 +138,8 @@ const Product = ({}) => {
       setAmount(amount-1)
     }
   }
+
+
   const onAddToCart = () => {
     fetch("http://localhost:8080/addToCart", {
         method: "POST",
@@ -131,7 +155,7 @@ const Product = ({}) => {
     <Container>
       <Wrapper>
         <ImgContainer>
-          <Image src={product.img}/>
+          <Image src={product.img_url}/>
         </ImgContainer>
         <InfoContainer>
           <Title>{product.title}</Title>
