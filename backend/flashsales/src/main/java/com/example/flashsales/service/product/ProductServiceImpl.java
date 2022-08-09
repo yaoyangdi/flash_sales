@@ -20,7 +20,7 @@ public class ProductServiceImpl implements ProductService{
     public void saveProduct(Product product) {
         // check whether product exist
         if(Objects.nonNull(findByTitle(product.getTitle()))){
-            throw new CustomException("Product already exist, not need to add");
+            throw new CustomException("Product already exist!");
         }
         // save the product
         productRepository.save(product);
@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService{
     public Product findById(long productId) {
         Optional<Product> optionalProduct= productRepository.findById(productId);
         if (optionalProduct.isEmpty()){
-            throw new ProductNotExistsException("product id is invalid: " + productId);
+            throw new ProductNotExistsException("product id is invalid!");
         }
         return optionalProduct.get();
     }
@@ -39,7 +39,7 @@ public class ProductServiceImpl implements ProductService{
     public Product findByTitle(String title) {
         Product product = productRepository.findByTitle(title);
         if (Objects.nonNull(product)){
-            throw new CustomException("product already exist");
+            throw new CustomException("Product already exist!");
         }
         return product;
     }
