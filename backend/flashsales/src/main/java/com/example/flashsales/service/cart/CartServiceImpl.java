@@ -75,7 +75,17 @@ public class CartServiceImpl implements CartService{
         cartProductRepository.save(updateProduct);
     }
 
-
+    @Override
+    public void delete(long id) {
+        // find by id
+        Cart_Product updateProduct = cartProductRepository.findById(id);
+        // validate the cart product id
+        if (Objects.isNull(updateProduct) ) {
+            throw new CustomException("Invalid cart product id!");
+        }
+        // delete the product
+        cartProductRepository.deleteById(id);
+    }
 
 
 }

@@ -117,5 +117,26 @@ public class CartController {
 
 
     // delete a cart item for a user
+    @DeleteMapping
+    public ResponseEntity<ApiResponse> delete(@RequestParam("id") long id, @RequestParam("token") String token) {
+        User user;   // initialization
+        try {
+            // authenticate the token
+            tokenService.authenticate(token);
+            // find the user
+            user = tokenService.getUser(token);
+        } catch (AuthenticationFailException e) {
+            return new ResponseEntity<>(new ApiResponse(false, e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
 
-}
+        // delete by id
+        try{
+            cartService.delete(id);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ApiResponse(false, e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(new ApiResponse(true, "Delete successfully!"),HttpStatus.ACCEPTED);
+
+    }
+    }
