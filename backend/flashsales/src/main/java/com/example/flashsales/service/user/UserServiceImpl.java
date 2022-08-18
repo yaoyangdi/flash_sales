@@ -1,16 +1,14 @@
 package com.example.flashsales.service.user;
 
-import com.example.flashsales.dto.ResponseDto;
-import com.example.flashsales.dto.SignInResponseDto;
+import com.example.flashsales.dto.response.ResponseDto;
+import com.example.flashsales.dto.response.SignInResponseDto;
 import com.example.flashsales.dto.SigninDto;
 import com.example.flashsales.exception.AuthenticationFailException;
 import com.example.flashsales.exception.CustomException;
 import com.example.flashsales.model.AuthenticationToken;
 import com.example.flashsales.model.User;
 import com.example.flashsales.repository.UserRepository;
-import com.example.flashsales.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.stereotype.Service;
 
 import javax.xml.bind.DatatypeConverter;
@@ -35,7 +33,7 @@ public class UserServiceImpl implements UserService {
     public ResponseDto signUp(User user) {
         // check if user already exists
         if ( Objects.nonNull(userRepository.findByEmail(user.getEmail())) ) {
-            throw new CustomException("user already exist");
+            throw new CustomException("User already exist");
         }
 
         // hash the password
@@ -54,7 +52,7 @@ public class UserServiceImpl implements UserService {
         final AuthenticationToken authenticationToken = new AuthenticationToken(new_user);
         tokenService.saveConfirmationToken(authenticationToken);
 
-        ResponseDto responseDto = new ResponseDto("success", "user created successfully");
+        ResponseDto responseDto = new ResponseDto("success", "User created successfully");
         return responseDto;
     }
 

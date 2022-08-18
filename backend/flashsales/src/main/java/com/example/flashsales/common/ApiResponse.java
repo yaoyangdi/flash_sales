@@ -8,9 +8,9 @@ import java.util.Date;
 @Data
 public class ApiResponse {
     private final boolean success;
-    private final String message;
+    private final Object message;
 
-    public ApiResponse(boolean success, String message) {
+    public ApiResponse(boolean success, Object message) {
         this.success = success;
         this.message = message;
     }

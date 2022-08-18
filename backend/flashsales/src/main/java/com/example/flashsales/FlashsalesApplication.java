@@ -17,16 +17,8 @@ public class FlashsalesApplication {
 		SpringApplication.run(FlashsalesApplication.class, args);
 	}
 
-	@Bean
-	public Cloudinary cloudinaryConfig() {
-		Cloudinary cloudinary = null;
-		Map config = new HashMap();
-		config.put("cloud_name", System.getenv("cloudName"));
-		config.put("api_key", System.getenv("apiKey"));
-		config.put("api_secret", System.getenv("apiSecret"));
-		cloudinary = new Cloudinary(config);
-		return cloudinary;
-	}
+
+
 
 }
 

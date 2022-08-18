@@ -1,18 +1,17 @@
 package com.example.flashsales.service.user;
 
-import com.example.flashsales.dto.ResponseDto;
-import com.example.flashsales.dto.SignInResponseDto;
+import com.example.flashsales.dto.response.ResponseDto;
+import com.example.flashsales.dto.response.SignInResponseDto;
 import com.example.flashsales.dto.SigninDto;
 import com.example.flashsales.model.User;
 
 import javax.transaction.Transactional;
-import java.util.HashMap;
 import java.util.List;
 
 public interface UserService {
-    public List<User> getAllUsers();
+    List<User> getAllUsers();
     @Transactional
-    public ResponseDto signUp (User user);
+    ResponseDto signUp (User user);
 
     SignInResponseDto signIn(SigninDto signinDto);
 }

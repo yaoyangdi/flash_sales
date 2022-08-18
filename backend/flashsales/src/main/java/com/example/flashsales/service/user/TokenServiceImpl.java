@@ -14,33 +14,45 @@ public class TokenServiceImpl implements TokenService {
     @Autowired
     TokenRepository tokenRepository;
 
+    /**
+     * Service used for creating a token on the database
+     */
     @Override
     public void saveConfirmationToken(AuthenticationToken authenticationToken) {
         tokenRepository.save(authenticationToken);
     }
 
+    /**
+     * Service used for retrieving a token by given user instance
+     * If the user is not present in db. then return null
+     */
     @Override
     public AuthenticationToken getToken(User user) {
         return tokenRepository.findByUser(user);
     }
-    public User getUser(String token) {
-        // Validate the token
-        AuthenticationToken authenticationToken = tokenRepository.findByToken(token);
-        if (Objects.isNull(authenticationToken)) {
-            return null;
-        }
-        return authenticationToken.getUser();
-    }
+
+    /**
+     * Service used for validating the token
+     * Validation includes NULL check & subsequent User NULL check
+     */
     @Override
     public void authenticate(String token) throws AuthenticationFailException{
         // null check
         if (Objects.isNull(token)) {
-            // throw an exception
-            throw new AuthenticationFailException("token not present");
+            throw new AuthenticationFailException("Token not present");
         }
         if (Objects.isNull(getUser(token))) {
-            throw new AuthenticationFailException("token not valid");
+            throw new AuthenticationFailException("Token not valid");
         }
+    }
+    // Invoked inside authenticate() method
+    public User getUser(String token) {
+        // Validate the token
+        AuthenticationToken authenticationToken = tokenRepository.findByToken(token);
+        if (Objects.isNull(authenticationToken)) {
+            throw new AuthenticationFailException("Token not present");
+        }
+        return authenticationToken.getUser();
     }
 
 

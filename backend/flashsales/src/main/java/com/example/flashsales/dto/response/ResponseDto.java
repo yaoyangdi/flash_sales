@@ -1,4 +1,4 @@
-package com.example.flashsales.dto;
+package com.example.flashsales.dto.response;
 
 import lombok.Data;
 
