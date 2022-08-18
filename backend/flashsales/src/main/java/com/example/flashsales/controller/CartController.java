@@ -58,22 +58,63 @@ public class CartController {
     @GetMapping
     public ResponseEntity<ApiResponse> getAll(@RequestParam("token") String token) {
         User user;   // initialization
-
-
         try {
             // authenticate the token
             tokenService.authenticate(token);
-
             // find the user
             user = tokenService.getUser(token);
-
         } catch (AuthenticationFailException e) {
             return new ResponseEntity<>(new ApiResponse(false, e.getMessage()), HttpStatus.BAD_REQUEST);
         }
+
         // find cart products by user
         List<Cart_Product> cart_products= cartService.getAllItems(user);
         return new ResponseEntity<>(new ApiResponse(true, cart_products),HttpStatus.ACCEPTED);
     }
+
+    // increase amount of given cart item
+    @PutMapping("/increase")
+    public ResponseEntity<ApiResponse> increase(@RequestParam("id") long id, @RequestParam("token") String token) {
+        User user;   // initialization
+        try {
+            // authenticate the token
+            tokenService.authenticate(token);
+            // find the user
+            user = tokenService.getUser(token);
+        } catch (AuthenticationFailException e) {
+            return new ResponseEntity<>(new ApiResponse(false, e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+        try{
+            cartService.increaseAmount(id);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ApiResponse(false, e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(new ApiResponse(true, "Increase successfully by one amount"),HttpStatus.ACCEPTED);
+    }
+
+    // decrease amount of given cart item
+    @PutMapping("/decrease")
+    public ResponseEntity<ApiResponse> decrease(@RequestParam("id") long id, @RequestParam("token") String token) {
+        User user;   // initialization
+        try {
+            // authenticate the token
+            tokenService.authenticate(token);
+            // find the user
+            user = tokenService.getUser(token);
+        } catch (AuthenticationFailException e) {
+            return new ResponseEntity<>(new ApiResponse(false, e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+
+        try{
+            cartService.decreaseAmount(id);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ApiResponse(false, e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(new ApiResponse(true, "Decrease successfully by one amount"),HttpStatus.ACCEPTED);
+    }
+
 
     // delete a cart item for a user
 

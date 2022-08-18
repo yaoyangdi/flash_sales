@@ -12,4 +12,8 @@ public interface CartService {
     ResponseDto addToCart(AddToCartDto addToCartDto, User user);
 
     List<Cart_Product> getAllItems(User user);
+
+    void increaseAmount(long id);
+
+    void decreaseAmount(long id);
 }

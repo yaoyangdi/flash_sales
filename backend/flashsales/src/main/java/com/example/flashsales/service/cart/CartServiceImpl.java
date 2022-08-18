@@ -50,5 +50,32 @@ public class CartServiceImpl implements CartService{
         return cartProductRepository.findByUser(user);
         }
 
+    @Override
+    public void increaseAmount(long id) {
+        // find by id
+        Cart_Product updateProduct = cartProductRepository.findById(id);
+        // validate the id
+        if (Objects.isNull(updateProduct) ) {
+            throw new CustomException("Invalid id!");
+        }
+        // update and save the product
+        updateProduct.setQty(updateProduct.getQty()+1);
+        cartProductRepository.save(updateProduct);
+    }
+    @Override
+    public void decreaseAmount(long id) {
+        // find by id
+        Cart_Product updateProduct = cartProductRepository.findById(id);
+        if(updateProduct.getQty() > 0) {
+            updateProduct.setQty(updateProduct.getQty()-1);
+        } else {
+            throw new CustomException("Amount can not be negative!");
+        }
+        // save the product
+        cartProductRepository.save(updateProduct);
+    }
+
+
+
 
 }
