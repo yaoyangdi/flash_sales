@@ -17,11 +17,11 @@ public class Flashsale_product {
     @Column(name = "fp_id", nullable = false)
     private Long id;
 
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name="prod_id")
     private Product product;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="flashsale_id")
     private Flashsale flashsale;
 

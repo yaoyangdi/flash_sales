@@ -29,11 +29,11 @@ public class Cart_Product {
     @Temporal(TemporalType.TIMESTAMP)
     private Date created_at;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name="prod_id")
     private Product cartProduct;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
 }

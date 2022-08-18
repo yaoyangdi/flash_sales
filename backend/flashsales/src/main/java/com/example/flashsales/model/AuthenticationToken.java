@@ -31,7 +31,7 @@ public class AuthenticationToken {
     @Temporal(TemporalType.TIMESTAMP)
     private Date created_date;
 
-    @OneToOne( cascade=CascadeType.ALL)
+    @OneToOne
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
 

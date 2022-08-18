@@ -37,10 +37,10 @@ public class Product {
     private String img_url;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "product")   // Non-owning side mapped attributes
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)   // Non-owning side mapped attributes
     private Flashsale_product flashsaleProduct;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "cartProduct")
+    @OneToOne(mappedBy = "cartProduct", cascade = CascadeType.ALL)
     private Cart_Product cartProduct;
 }
