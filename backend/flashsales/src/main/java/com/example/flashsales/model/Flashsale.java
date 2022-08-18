@@ -30,5 +30,5 @@ public class Flashsale {
 
     @JsonIgnore
     @OneToMany(mappedBy = "flashsale")
-    private Set<Flashsale_product> flashsale_products;
+    private Set<Flashsale_product> products;
 }

@@ -37,10 +37,10 @@ public class Product {
     private String img_url;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "fp_product")   // Non-owning side mapped attributes
-    private Flashsale_product flashsale_product;
+    @OneToOne(mappedBy = "product")   // Non-owning side mapped attributes
+    private Flashsale_product flashsaleProduct;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "op_product")
-    private Cart_Product cart_product;
+    @OneToOne(mappedBy = "cartProduct")
+    private Cart_Product cartProduct;
 }

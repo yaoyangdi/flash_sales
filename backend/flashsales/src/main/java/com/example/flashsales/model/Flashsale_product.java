@@ -19,7 +19,7 @@ public class Flashsale_product {
 
     @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="prod_id")
-    private Product fp_product;
+    private Product product;
 
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="flashsale_id")
@@ -38,5 +38,5 @@ public class Flashsale_product {
     private long availableStock = totalStock;
 
     @Column(name = "lock_stock", nullable = false)
-    private long lock_stock = 0;
+    private long lockStock = 0;
 }

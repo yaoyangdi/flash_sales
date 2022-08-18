@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.modelmapper.ModelMapper;
 
 import java.util.List;
 
@@ -24,7 +25,8 @@ public class CartController {
     @Autowired
     private TokenService tokenService;
 
-
+    @Autowired
+    private ModelMapper modelMapper;
     // Add an item to the cart
     @PostMapping
     public ResponseEntity<ApiResponse> addToCart(@RequestBody AddToCartDto addToCartDto, @RequestParam("token") String token) {
@@ -42,7 +44,11 @@ public class CartController {
         }
 
         // add to cart
-        responseDto = cartService.addToCart(addToCartDto, user);
+        try{
+            responseDto = cartService.addToCart(addToCartDto, user);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ApiResponse(false, e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
 
         return new ResponseEntity<>(new ApiResponse(true, responseDto.getMessage()), HttpStatus.CREATED);
     }
@@ -52,6 +58,7 @@ public class CartController {
     @GetMapping
     public ResponseEntity<ApiResponse> getAll(@RequestParam("token") String token) {
         User user;   // initialization
+
 
         try {
             // authenticate the token
@@ -65,7 +72,6 @@ public class CartController {
         }
         // find cart products by user
         List<Cart_Product> cart_products= cartService.getAllItems(user);
-
         return new ResponseEntity<>(new ApiResponse(true, cart_products),HttpStatus.ACCEPTED);
     }
 

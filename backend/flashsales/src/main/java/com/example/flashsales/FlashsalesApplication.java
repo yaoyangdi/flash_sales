@@ -1,6 +1,7 @@
 package com.example.flashsales;
 
 import com.cloudinary.Cloudinary;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -16,9 +17,6 @@ public class FlashsalesApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FlashsalesApplication.class, args);
 	}
-
-
-
 
 }
 

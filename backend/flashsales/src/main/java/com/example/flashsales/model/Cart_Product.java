@@ -11,7 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class Cart_Product {
     public Cart_Product(Product op_product, User user, Integer qty) {
-        this.op_product = op_product;
+        this.cartProduct = op_product;
         this.user = user;
         this.created_at = new Date();
         this.qty = qty;
@@ -31,7 +31,7 @@ public class Cart_Product {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="prod_id")
-    private Product op_product;
+    private Product cartProduct;
 
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="user_id")
