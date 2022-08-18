@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import Badge from '@mui/material/Badge';
+import { useEffect, useState } from 'react';
 
 const Container = styled.div`
     height: 70px;
@@ -64,10 +65,27 @@ const MenuItem = styled.a`
 
 `;
 const Navbar = () => {
-    const handleSearch = () =>{
+    const handleSearch = () => {};
+    const [cartList, setCartList] = useState([]);
 
-    }
+    const fetchData =  () => fetch('http://localhost:8080/cart?token=4028b881828388fb0182838cfc2b0003')
+    .then(response => response.json())
+    .then(data => {
+      const result = []
+      data.message.forEach((product)=> {
+        result.push(product);
+      })
+      setCartList(result);
+      // setProductList(data)  // store the product list
+    });
+    
+    /* UseEffect (ComponentDidMount) */
+    useEffect(() => {
+      fetchData();
+    }, []); // empty dependency array means this effect will only run once (like componentDidMount in classes)
 
+    let cartAmount = cartList!==[] && cartList.reduce((acc, curr) => acc+curr.qty, 0);
+  
     return (
         <Container>
             <Wrapper>
@@ -82,7 +100,7 @@ const Navbar = () => {
                     <MenuItem  href='/register'>REGISTER</MenuItem>
                     <MenuItem  href='/login'>LOGIN</MenuItem>
                     <MenuItem  href='/cart'>
-                        <Badge badgeContent={2} color="primary">
+                        <Badge badgeContent={cartAmount} color="primary">
                             <ShoppingCartOutlinedIcon/>
                         </Badge>
                     </MenuItem>

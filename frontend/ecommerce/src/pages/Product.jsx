@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 const Container = styled.div`
@@ -102,9 +102,12 @@ const Button = styled.button`
 
 const Product = ({}) => {
 
+  // useState variables
   const [productList, setProductList] = useState(null);
   const [amount, setAmount] = useState(0);
   const [size, setSize] = useState("");
+  const navigate = useNavigate();
+
   // GET request using fetch 
   const fetchData =  () => fetch('http://localhost:8080/product/')
   .then(response => response.json())
@@ -116,7 +119,7 @@ const Product = ({}) => {
     setProductList(result);
     // setProductList(data)  // store the product list
   });
-
+  
   /* UseEffect (ComponentDidMount) */
   useEffect(() => {
     fetchData();
@@ -139,16 +142,27 @@ const Product = ({}) => {
     }
   }
 
-
   const onAddToCart = () => {
-    fetch("http://localhost:8080/addToCart", {
+    if (amount === 0) {
+      alert("ERROR: Amount should not be empty!")
+    } else 
+    {
+      fetch("http://localhost:8080/cart?token=4028b881828388fb0182838cfc2b0003", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(Object.fromEntries({"productId": product.id, "qty": amount, "size": size.value}))
-    })
-    .then((response) => {
-      console.log(response); // returns empty string
-    })
+        body: JSON.stringify({"productId": product.id, "qty": amount, "size": size.value})
+      })
+      .then(response => response.json())
+      .then((res) => res.success ? onSuccessAdded() : onFailAdded())
+    }
+  }
+
+  const onSuccessAdded = () => {
+    alert('Add to cart successfully!');
+    navigate("/");
+  }
+  const onFailAdded = () => {
+    alert('Adding to cart failed !');
   }
   
   return (

@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components"
 import FormInput from "../components/FormInput";
 
@@ -47,7 +48,12 @@ const Button = styled.button`
     color: white;
     cursor: pointer;
 `;
-
+const ErrorMessage = styled.span`
+    font-size: 14px;
+    font-weight: bold;
+    color: red;
+    font-weight: 400;
+`;
 const Register = () => {
     // use useRef to avoid re-rendering
     const firstnameRef = useRef();
@@ -56,6 +62,7 @@ const Register = () => {
     const emailRef = useRef();
     const passwordRef = useRef();
     const confirmRef = useRef();
+    const navigate = useNavigate();
 
     const [values, setValues] = useState({   // use JSON object instead of use useState hook multiple times
         firstname: "",
@@ -65,6 +72,8 @@ const Register = () => {
         password: "",
         confirmedPassword: ""
     });
+    const [errorMessage, setErrorMessage] = useState(null); 
+
 
     // Handle multiple inputs
     const inputs = [
@@ -140,13 +149,27 @@ const Register = () => {
         e.preventDefault();  // prevent refresh the page by default
         const data = new FormData(e.target);
         
-        fetch("http://localhost:8080/api/user", {
+        fetch("http://localhost:8080/user/signup", {
+            mode: "cors",
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(Object.fromEntries(data.entries()))
-        }).then(()=>{
-            console.log("new account added")
         })
+        .then(response => response.json())
+        .then(res => res.success ? onSuccessSubmit() : setErrorMessage(res.message))
+    }
+    const onSuccessSubmit = ()  => {
+        setErrorMessage("");
+        setValues({   // use JSON object instead of using useState hook multiple times
+            firstname: "",
+            lastname: "",
+            username: "",
+            email: "",
+            password: "",
+            confirmedPassword: ""
+        })
+        alert('Product created successfully!');
+        navigate("/");
     }
 
     return (
@@ -156,6 +179,7 @@ const Register = () => {
                     <Logo href="/" >XYZ.</Logo>
                 </LogoContainer>
                 <Title>CREATE AN ACCOUNT</Title>
+                <ErrorMessage>{errorMessage}</ErrorMessage>
                 <Form onSubmit={handleSubmit} >
                     {inputs.map((input)=>(
                         <FormInput key={input.id} {...input} width="40%" value={values[input.name]} onChange={onChange}/>
