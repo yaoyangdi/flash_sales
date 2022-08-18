@@ -82,7 +82,7 @@ const Navbar = () => {
     /* UseEffect (ComponentDidMount) */
     useEffect(() => {
       fetchData();
-    }, []); // empty dependency array means this effect will only run once (like componentDidMount in classes)
+    }); // empty dependency array means this effect will only run once (like componentDidMount in classes)
 
     let cartAmount = cartList!==[] && cartList.reduce((acc, curr) => acc+curr.qty, 0);
   

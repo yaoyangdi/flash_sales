@@ -1,6 +1,8 @@
 import styled from "styled-components"
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { useState } from "react";
+import { useEffect } from "react";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -51,7 +53,7 @@ const ProductDetail = styled.div`
 `;
 const Image = styled.img`
     width: 170px;
-    height: 170px;
+    height: 220px;
 `;
 const Details = styled.div`
     padding: 20px;
@@ -127,89 +129,120 @@ const SummaryButton = styled.button`
 
 
 const Cart = () => {
-  return (
-    <Container>
-        <Wrapper>
-            <Title>YOUR BAG</Title>
-            <Top>
-                <a href="/"><TopButton >CONTINUE SHOPPING</TopButton></a>
-                
-                <TopTexts>
-                    <TopText>Shopping Bag(2)</TopText>
-                    <TopText>Your Wishlist(0)</TopText>
-                </TopTexts>
-                <TopButton  type="filled">CHECKOUT NOW</TopButton>
-            </Top>
-            <Bottom>
-                <Info>
-                    <Product>
-                        <ProductDetail>
-                            <Image src=""></Image>
-                            <Details>
-                                <ProductName><b>Product:</b>JESSIE THUNDER SHOES</ProductName>
-                                <ProductId><b>ID:</b>3425784</ProductId>
-                                <ProductColor color="black"></ProductColor>
-                                <ProductSize><b>Size:</b>9.5</ProductSize>
-                            </Details>
-                        </ProductDetail>
-                        <PriceDetail>
-                            <ProductAmountContainer>
-                                <RemoveIcon/>
-                                <ProductAmount>2</ProductAmount>
-                                <AddIcon/>
-                            </ProductAmountContainer>
-                            <ProductPrice>$ 30</ProductPrice>
-                        </PriceDetail>
-                    </Product>
-                    <Hr></Hr>
-                    <Product>
-                        <ProductDetail>
-                            <Image></Image>
-                            <Details>
-                                <ProductName><b>Product:</b>JESSIE THUNDER SHOES</ProductName>
-                                <ProductId><b>ID:</b>3425784</ProductId>
-                                <ProductColor color="black"></ProductColor>
-                                <ProductSize><b>Size:</b>9.5</ProductSize>
-                            </Details>
-                        </ProductDetail>
-                        <PriceDetail>
-                            <ProductAmountContainer>
-                                <RemoveIcon/>
-                                <ProductAmount>2</ProductAmount>
-                                <AddIcon/>
-                            </ProductAmountContainer>
-                            <ProductPrice>$ 30</ProductPrice>
-                        </PriceDetail>
-                    </Product>
+    const [cartList, setCartList] = useState([]);
+    const [itemAmount, setItemAmount] = useState(0);
+
+
+    const fetchData =  () => fetch('http://localhost:8080/cart?token=4028b881828388fb0182838cfc2b0003')
+    .then(response => response.json())
+    .then(data => {
+      const result = []
+      data.message.forEach((product)=> {
+        result.push(product);
+      })
+      setCartList(result);
+      // setProductList(data)  // store the product list
+    });
+    
+    /* UseEffect (ComponentDidMount) */
+    useEffect(() => {
+      fetchData();
+    }); // empty dependency array means this effect will only run once (like componentDidMount in classes)
+
+    let cartAmount = cartList!==[] && cartList.reduce((acc, curr) => acc+curr.qty, 0);
+    let subtotal = cartList!==[] && cartList.reduce((acc, curr) => acc+curr.qty*curr.cartProduct.price, 0).toFixed(2);
+
+
+
+
+    /* Method for amount var */
+    const onInc = (id) => {
+        fetch(`http://localhost:8080/cart/increase?token=4028b881828388fb0182838cfc2b0003&id=${id}`,
+        {
+            method: "PUT",
+        })
+    };
+
+    const onDec = (itemAmount, id) => {
+        if (itemAmount>0){
+            fetch(`http://localhost:8080/cart/decrease?token=4028b881828388fb0182838cfc2b0003&id=${id}`,
+            {
+                method: "PUT",
+            })
+        };
+    }
+
+    return (
+        <Container>
+            <Wrapper>
+                <Title>YOUR BAG</Title>
+                <Top>
+                    <a href="/"><TopButton >CONTINUE SHOPPING</TopButton></a>
                     
-                </Info>
-                <Summary>
-                    <SummaryTitle>ORDER SUMMARY</SummaryTitle>
-                    <SummaryItem>
-                        <SummaryItemText>Subtotal</SummaryItemText>
-                        <SummaryItemPrice>$ 80</SummaryItemPrice>
-                    </SummaryItem>
+                    <TopTexts>
+                        <TopText>Shopping Bag({cartAmount})</TopText>
+                        <TopText>Your Wishlist(0)</TopText>
+                    </TopTexts>
+                    <TopButton  type="filled">CHECKOUT NOW</TopButton>
+                </Top>
+                <Bottom>
+                    <Info>
+                        {
+                            cartList.map((product) => (
+                                <>
+                                    <Product>
+                                        <ProductDetail>
+                                            <Image src={product.cartProduct.img_url}></Image>
+                                            <Details>
+                                                <ProductName><b>Product: </b>{product.cartProduct.title}</ProductName>
+                                                <ProductId><b>ID: </b>{product.cartProduct.id}</ProductId>
+                                                <ProductColor color="black"></ProductColor>
+                                                <ProductSize><b>Size:</b>9.5</ProductSize>
+                                            </Details>
+                                        </ProductDetail>
+                                        <PriceDetail>
+                                            <ProductAmountContainer>
+                                                <RemoveIcon onClick={() => onDec(product.qty, product.id)} style={{cursor:"pointer"}}/>
+                                                <ProductAmount>{product.qty}</ProductAmount>
+                                                <AddIcon  onClick={() => onInc(product.id)} style={{cursor:"pointer"}}/>
+                                            </ProductAmountContainer>
+                                            <ProductPrice>$ {product.cartProduct.price}</ProductPrice>
+                                        </PriceDetail>
+                                    </Product>
+                                    <Hr></Hr>
+                                </>
+                                )
+                            )
+                        }
 
-                    <SummaryItem>
-                        <SummaryItemText>Estimated Shipping</SummaryItemText>
-                        <SummaryItemPrice>$ 5.90</SummaryItemPrice>
-                    </SummaryItem>
+                    </Info>
+                    <Summary>
+                        <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+                        <SummaryItem>
+                            <SummaryItemText>Subtotal</SummaryItemText>
+                            <SummaryItemPrice>$ {subtotal}</SummaryItemPrice>
+                        </SummaryItem>
 
-                    <SummaryItem>
-                        <SummaryItemText>Shipping Discount</SummaryItemText>
-                        <SummaryItemPrice>$ -5.90</SummaryItemPrice>
-                    </SummaryItem>
+                        <SummaryItem>
+                            <SummaryItemText>Estimated Shipping</SummaryItemText>
+                            <SummaryItemPrice>$ 5.90</SummaryItemPrice>
+                        </SummaryItem>
 
-                    <SummaryItem type="total">
-                        <SummaryItemText>Total</SummaryItemText>
-                        <SummaryItemPrice>$ 80</SummaryItemPrice>
-                    </SummaryItem>
-                    <SummaryButton>PAY NOW</SummaryButton>
-                </Summary>
-            </Bottom>
-        </Wrapper>
-    </Container>
-  )
+                        <SummaryItem>
+                            <SummaryItemText>Shipping Discount</SummaryItemText>
+                            <SummaryItemPrice>$ -5.90</SummaryItemPrice>
+                        </SummaryItem>
+
+                        <SummaryItem type="total">
+                            <SummaryItemText>Total</SummaryItemText>
+                            <SummaryItemPrice>$ {subtotal}</SummaryItemPrice>
+                        </SummaryItem>
+                        <SummaryButton>PAY NOW</SummaryButton>
+                    </Summary>
+                </Bottom>
+            </Wrapper>
+        </Container>
+    )
 }
 
 export default Cart
