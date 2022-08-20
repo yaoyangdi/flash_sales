@@ -44,6 +44,5 @@ public class UserController {
         } catch (CustomException e) {
             return new ResponseEntity<>(new ApiResponse(false, e.getMessage()), HttpStatus.BAD_REQUEST);
         }
-
-        return new ResponseEntity<>(new ApiResponse(true, responseDto.getToken()), HttpStatus.CREATED); }
+            return new ResponseEntity<>(new ApiResponse(true, responseDto.getToken()), HttpStatus.CREATED); }
 }

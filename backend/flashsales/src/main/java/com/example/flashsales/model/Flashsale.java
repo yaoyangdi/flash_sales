@@ -4,17 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Data
@@ -43,8 +38,7 @@ public class Flashsale {
     @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
 
-    @OneToMany(mappedBy = "flashsale")
-    @Fetch(value = FetchMode.SUBSELECT)
+    @OneToMany(mappedBy = "flashsale", cascade=CascadeType.ALL)
     @JsonManagedReference
-    private Collection<Flashsale_product> products;
+    private Collection<Flashsale_product> products = new ArrayList<>();
 }

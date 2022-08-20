@@ -21,8 +21,12 @@ public class FlashsaleController {
     private FlashsaleService flashsaleService;
 
     @GetMapping
-    List<Flashsale> all() {
-        return flashsaleService.getAllFlashsales();
+    ResponseEntity<ApiResponse> all() {
+        try{
+            return new ResponseEntity<>(new ApiResponse(true, flashsaleService.getAllFlashsales()), HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ApiResponse(false, e.getMessage() ), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping

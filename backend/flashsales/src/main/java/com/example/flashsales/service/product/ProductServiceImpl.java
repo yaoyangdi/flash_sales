@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService{
     public Product findById(long productId) {
         Optional<Product> optionalProduct= productRepository.findById(productId);
         if (optionalProduct.isEmpty()){
-            throw new ProductNotExistsException("product id is invalid!");
+            throw new CustomException("Product id is invalid!");
         }
         return optionalProduct.get();
     }
@@ -38,7 +38,7 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public Product findByTitle(String title) {
         Product product = productRepository.findByTitle(title);
-        if (Objects.nonNull(product)){
+        if (Objects.nonNull(product)) {
             throw new CustomException("Product already exist!");
         }
         return product;

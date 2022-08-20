@@ -16,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -41,12 +42,29 @@ public class FlashsaleServiceImpl implements FlashsaleService {
         // validate if the product already exist in the database
         Flashsale_product query_product = flashsaleProductRepository.findByProduct(product);
         if ( Objects.isNull( query_product )) {
-            Flashsale flashsale = new Flashsale(flashsaleDto.getStartTime(), flashsaleDto.getEndTime());
-            flashsaleRepository.save(flashsale); // save the flash sale instance
+            Date startTime = flashsaleDto.getStartTime();
+            Date endTime = flashsaleDto.getEndTime();
 
-            Flashsale_product flashsale_product = new Flashsale_product(product, flashsale, flashsaleDto.getNewPrice(), flashsaleDto.getTotalStock());
-            flashsaleProductRepository.save(flashsale_product); // save the flash-sale product instance
+            // check if the flash sale time slot has been occupied
+            Flashsale byStartTimeAndEndTime = flashsaleRepository.findByStartTimeAndEndTime(startTime, endTime);
+            if (Objects.isNull(byStartTimeAndEndTime))  {
+                // if null then create a new one flash sale
+                Flashsale flashsale = new Flashsale(flashsaleDto.getStartTime(), flashsaleDto.getEndTime());
+                flashsaleRepository.save(flashsale);
+                // add flash-sale product
+                Flashsale_product flashsale_product = new Flashsale_product(product, flashsale, flashsaleDto.getNewPrice(), flashsaleDto.getTotalStock());
+                flashsaleProductRepository.save(flashsale_product); // save the flash-sale product instance
+
+            } else {
+                // if existed then add new product to this activity
+                Flashsale_product flashsale_product = new Flashsale_product(product, byStartTimeAndEndTime, flashsaleDto.getNewPrice(), flashsaleDto.getTotalStock());
+//                byStartTimeAndEndTime.getProducts().add(flashsale_product);
+//                flashsaleRepository.save(byStartTimeAndEndTime);
+                flashsaleProductRepository.save(flashsale_product); // save the flash-sale product instance
+            }
             return new ResponseDto("true", "Flash sale created successfully!");
+
+
         } else {    // if existed, throw an error
             throw new CustomException("Product is already present!");
         }
