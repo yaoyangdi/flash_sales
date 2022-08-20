@@ -75,7 +75,7 @@ export const flashsales = [
             img: sweatshirt1,
             title: "Men Bear Print Thermal Lined Sweatshirt",
             prev_price: 68.95,
-            price: 25.95,
+            price: 21.95,
             totalStock: 70,
             availableStock: 32,
         },

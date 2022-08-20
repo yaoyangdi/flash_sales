@@ -130,8 +130,6 @@ const SummaryButton = styled.button`
 
 const Cart = () => {
     const [cartList, setCartList] = useState([]);
-    const [itemAmount, setItemAmount] = useState(0);
-
 
     const fetchData =  () => fetch('http://localhost:8080/cart?token=4028b881828388fb0182838cfc2b0003')
     .then(response => response.json())
@@ -164,10 +162,22 @@ const Cart = () => {
     };
 
     const onDec = (itemAmount, id) => {
-        if (itemAmount>0){
+        if (itemAmount>1){
             fetch(`http://localhost:8080/cart/decrease?token=4028b881828388fb0182838cfc2b0003&id=${id}`,
             {
                 method: "PUT",
+            })
+        } else {
+            // decrease
+            fetch(`http://localhost:8080/cart/decrease?token=4028b881828388fb0182838cfc2b0003&id=${id}`,
+            {
+                method: "PUT",
+            });
+
+            // delete
+            fetch(`http://localhost:8080/cart?token=4028b881828388fb0182838cfc2b0003&id=${id}`,
+            {
+                method: "DELETE",
             })
         };
     }

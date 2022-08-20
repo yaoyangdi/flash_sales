@@ -1,6 +1,6 @@
 import {useEffect, useRef,  useState } from "react";
 import styled from "styled-components"
-import { flashsales } from "../assets/data.js";
+// import { flashsales } from "../assets/data.js";
 import Countdown from "./Countdown.jsx";
 import Product from "./Product";
 
@@ -26,21 +26,40 @@ const CountdownContainer = styled.div`
 
 const Flashsale = () => {
     const [id, setId] = useState(0);
+    const [flashsaleList, setFlashsaleList] = useState(null);
+
+
     const handleClick =()=> (e) => {
-        if(flashsales[e].status === 1){
+        console.log(e);
+        if(flashsaleList!== null && flashsaleList[e].status === 1){
             setId(e);
         }
     }
 
-let start_time = new Date(flashsales[id].startTime).getTime();
+let start_time = new Date(flashsaleList!==null && flashsaleList[id].startTime).getTime();
 const curr = new Date().getTime();
+
+const fetchData =  () => fetch('http://localhost:8080/flashsale')
+.then(response => response.json())
+.then(data => {
+  const result = []
+  data.message.forEach((product)=> {
+    result.push(product);
+  })
+  setFlashsaleList(result);
+});
+
+/* UseEffect (ComponentDidMount) */
+useEffect(() => {
+  fetchData();
+},[]); // empty dependency array means this effect will only run once (like componentDidMount in classes)
 
 
   return (
     <Container>
       <Title>Flash Sales</Title>
       <CountdownContainer>
-        {flashsales.map((flashsale) => (
+        {flashsaleList!=null && flashsaleList.map((flashsale) => (
             flashsale.status === 1 
             ? (
                 <Countdown handleClick={handleClick()} 
@@ -59,7 +78,7 @@ const curr = new Date().getTime();
       <Products>
         {
             ( ( curr - start_time) >= 0 ) ?
-            flashsales[id].products.map((prod)=>(
+            flashsaleList!=null && flashsaleList[id].products.map((prod)=>(
                 <Product prod={prod} key={prod.id}/>
             )) : null
         }

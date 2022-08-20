@@ -96,9 +96,9 @@ const PrevPrice = styled.span`
 const Product = ({prod}) => {
     const navigate = useNavigate();
   return (
-    <Container onClick={()=> navigate(`product/${prod.id}`)}>
-        <Discount><FlashOnIcon style={{fontSize: "25px"}}/>{-Math.round((prod.prev_price-prod.price)*100/prod.prev_price)}%</Discount>
-        <Image src={prod.img} />
+    <Container onClick={()=> navigate(`product/${prod.product.id}`)}>
+        <Discount><FlashOnIcon style={{fontSize: "25px"}}/>{-Math.round((prod.prevPrice-prod.price)*100/prod.prevPrice)}%</Discount>
+        <Image src={prod.product.img_url} />
         <Hover>
             <Icon>
                 <ShoppingCartOutlinedIcon/>
@@ -111,10 +111,10 @@ const Product = ({prod}) => {
             </Icon>
         </Hover>
         <Info>
-            <Title>{prod.title}</Title>
+            <Title>{prod.product.title}</Title>
             <PriceContainer>
                 <Price>AU${prod.price}</Price>
-                <PrevPrice>AU${prod.prev_price}</PrevPrice>
+                <PrevPrice>AU${prod.prevPrice}</PrevPrice>
             </PriceContainer>
             <Progress percent={Math.round(prod.availableStock*100/prod.totalStock)}/>
         </Info>

@@ -38,7 +38,6 @@ const Button = styled.button`
 const NewFlashSale = () => {
     // use useRef to avoid re-rendering
     const productIdRef = useRef();
-    const prevPriceRef = useRef();
     const priceRef = useRef();
     const totalStockRef = useRef();
     const startTimeRef = useRef();
@@ -46,8 +45,7 @@ const NewFlashSale = () => {
 
     const [values, setValues] = useState({   // use JSON object instead of using useState hook multiple times
         productId: "",
-        prevPrice: "",
-        price: "",
+        newPrice: "",
         totalStock: "",
         startTime: "",
         endTime: "",
@@ -66,16 +64,7 @@ const NewFlashSale = () => {
         },
         {
             id: 2,
-            name: "prevPrice",
-            type: "text",
-            placeholder: "Previous Price",
-            refer: prevPriceRef,
-            label: "Previous Price",
-            required: true,
-        },
-        {
-            id: 3,
-            name: "price",
+            name: "newPrice",
             type: "text",
             placeholder: "Price",
             refer: priceRef,
@@ -83,7 +72,7 @@ const NewFlashSale = () => {
             required: true,
         },
         {
-            id: 4,
+            id: 3,
             name: "totalStock",
             type: "number",
             placeholder: "Total Stock",
@@ -92,7 +81,7 @@ const NewFlashSale = () => {
             required: true,
         },
         {
-            id: 5,
+            id: 4,
             name: "startTime",
             type: "datetime-local",
             placeholder: "Start Time",
@@ -101,7 +90,7 @@ const NewFlashSale = () => {
             required: true,
         },
         {
-            id: 6,
+            id: 5,
             name: "endTime",
             type: "datetime-local",
             placeholder: "End Time",
@@ -119,16 +108,35 @@ const NewFlashSale = () => {
     const handleSubmit = (e) =>{
         e.preventDefault();  // prevent refresh the page by default
         const data = new FormData(e.target);
+        console.log(Object.fromEntries(data.entries()))
 
-        fetch("http://localhost:8080/api/flashsale", {
+
+        fetch("http://localhost:8080/flashsale", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(Object.fromEntries(data.entries()))
-        }).then(()=>{
-            console.log("new flashsale added")
         })
+        .then(
+            response => response.json()
+        )
+        .then(
+            res => res.success ? onSuccessSubmit() : alert(res.message)
+        )
     }
     
+    const onSuccessSubmit = ()  => {
+        /*
+        setValues({   // use JSON object instead of using useState hook multiple times
+            productId: "",
+            newPrice: "",
+            totalStock: "",
+            startTime: "",
+            endTime: "",
+        })
+        */
+        alert('Product created successfully!');
+    }
+
     return (
         <Container>
             <Wrapper>
