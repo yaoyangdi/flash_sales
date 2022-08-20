@@ -1,6 +1,9 @@
 package com.example.flashsales.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -11,8 +14,19 @@ import java.util.Set;
 @Entity
 @Data
 @Table(name="FLASHSALE_PRODUCTS")
+@NoArgsConstructor
 public class Flashsale_product {
 
+    // Constructor
+    public Flashsale_product(Product product, Flashsale flashsale, BigDecimal price, long totalStock) {
+        this.product = product;
+        this.flashsale = flashsale;
+        this.prevPrice = product.getPrice();
+        this.price = price;
+        this.totalStock = totalStock;
+        this.availableStock = totalStock;  // initially it is same as total stock
+        this.lockStock = 0;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +41,7 @@ public class Flashsale_product {
     @ManyToOne
     @JoinColumn(name="flashsale_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonBackReference
     private Flashsale flashsale;
 
     @Column(name = "prev_price", nullable = false, precision = 10, scale = 2)
@@ -39,8 +54,8 @@ public class Flashsale_product {
     private long totalStock;
 
     @Column(name = "available_stock", nullable = false)
-    private long availableStock = totalStock;
+    private long availableStock;
 
     @Column(name = "lock_stock", nullable = false)
-    private long lockStock = 0;
+    private long lockStock;
 }

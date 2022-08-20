@@ -33,11 +33,9 @@ public class Cart_Product {
 
     @OneToOne
     @JoinColumn(name="prod_id",nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Product cartProduct;
 
     @ManyToOne
     @JoinColumn(name="user_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 }

@@ -35,4 +35,13 @@ public class Product {
 
     @Column(name= "img_url", nullable = false)
     private String img_url;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)   // Non-owning side mapped attributes
+    private Flashsale_product flashsaleProduct;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "cartProduct", cascade = CascadeType.REMOVE)
+    @JoinColumn(name= "op_id")
+    private Cart_Product cartProduct;
 }
