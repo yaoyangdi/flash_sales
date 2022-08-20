@@ -27,8 +27,4 @@ public class Flashsale {
     @Column(name = "endTime", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "flashsale")
-    private Set<Flashsale_product> products;
 }

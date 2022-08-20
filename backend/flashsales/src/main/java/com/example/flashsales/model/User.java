@@ -40,12 +40,4 @@ public class User {
     @JsonIgnore
     @Column(name = "password",nullable = false)
     private String password;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL)
-    private List<Cart_Product> cart_products;
-
-    @JsonIgnore
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private AuthenticationToken token;
 }

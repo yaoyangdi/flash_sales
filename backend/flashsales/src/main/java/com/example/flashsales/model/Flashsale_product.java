@@ -1,6 +1,8 @@
 package com.example.flashsales.model;
 
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -17,12 +19,14 @@ public class Flashsale_product {
     @Column(name = "fp_id", nullable = false)
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="prod_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Product product;
 
     @ManyToOne
     @JoinColumn(name="flashsale_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Flashsale flashsale;
 
     @Column(name = "prev_price", nullable = false, precision = 10, scale = 2)

@@ -2,6 +2,8 @@ package com.example.flashsales.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -33,6 +35,7 @@ public class AuthenticationToken {
 
     @OneToOne
     @JoinColumn(nullable = false, name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
 

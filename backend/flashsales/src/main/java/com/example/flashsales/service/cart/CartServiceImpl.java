@@ -84,7 +84,7 @@ public class CartServiceImpl implements CartService{
             throw new CustomException("Invalid cart product id!");
         }
         // delete the product
-        cartProductRepository.deleteById(id);
+        cartProductRepository.delete(updateProduct);
     }
 
 

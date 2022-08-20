@@ -1,6 +1,8 @@
 package com.example.flashsales.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -30,10 +32,12 @@ public class Cart_Product {
     private Date created_at;
 
     @OneToOne
-    @JoinColumn(name="prod_id")
+    @JoinColumn(name="prod_id",nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Product cartProduct;
 
     @ManyToOne
     @JoinColumn(name="user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 }
