@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const Container = styled.div`
     margin:15px;
     width: 250px;
-    height:400px;
+    height:480px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -18,14 +18,14 @@ const Container = styled.div`
 `;
 
 const Image = styled.img`
-    margin-top: 1em;
+    margin-top: -1em;
     width: 100%;
 `; 
 
 const Hover = styled.div`
     opacity: 0;
     width: 100%;
-    height: 100%;
+    height: 80%;
     position: absolute;
     top: 0;
     left:0;
@@ -93,13 +93,48 @@ const PrevPrice = styled.span`
     text-decoration: line-through;
 `;
 
+const Button = styled.div`
+    width: 70%;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #facf19;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 700;
+    font-size: 17px;
+`;
+
+
 const Product = ({prod}) => {
     const navigate = useNavigate();
+
+    const processFlashsale = (id) => fetch(`http://localhost:8080/flashsale/process?id=${id}`, {
+        method: "PUT",
+        })
+        .then(response => response.json())
+        .then((res) => res.success ? onSuccessProceed() : alert(res.message));
+
+    const onAddToCart = (id) => {
+        fetch("http://localhost:8080/cart?token=4028b881828388fb0182838cfc2b0003", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({"productId": id, "qty": 1})
+        })
+        .then(response => response.json())
+        .then((res) => res.success ? processFlashsale(id) : alert(res.message))
+      }
+
+    const onSuccessProceed = () => {
+    alert('Process falsh sale successfully!');
+    navigate("/");
+    }
+
+
   return (
-    <Container onClick={()=> navigate(`product/${prod.product.id}`)}>
+    <Container>
         <Discount><FlashOnIcon style={{fontSize: "25px"}}/>{-Math.round((prod.prevPrice-prod.price)*100/prod.prevPrice)}%</Discount>
         <Image src={prod.product.img_url} />
-        <Hover>
+        <Hover  onClick={()=> navigate(`product/${prod.product.id}`)}>
             <Icon>
                 <ShoppingCartOutlinedIcon/>
             </Icon>
@@ -118,6 +153,7 @@ const Product = ({prod}) => {
             </PriceContainer>
             <Progress percent={Math.round(prod.availableStock*100/prod.totalStock)}/>
         </Info>
+        <Button onClick={()=>onAddToCart(prod.id)}>BUY IT NOW!</Button>
     </Container>
   )
 }
@@ -127,6 +163,8 @@ const ProgressContainer = styled.div`
     height: 15px;
     border-radius: 10px;
     background-color: #d8d8d8;
+    margin-bottom: 0.8em;
+
 `;
 const Progressfill = styled.div`
     display: flex;
