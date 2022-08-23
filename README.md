@@ -4,7 +4,7 @@ This project is a full-stack web app featured with flash sale that has high conc
 
 ### Scenario
 
-The scenario involves a retailer providing customers with limited chances to purchase limited edition sneakers.
+The scenario involves a retailer offering products with limited time and stock to allow customers to buy them on a good budget.
 
 It comes with the following **characteristics**:
 
