@@ -47,12 +47,20 @@ The REST web services have been documented using `Swagger`, visit it via [https:
 
 The flash-sale activity with its products will disappear once its corresponding countdown timer come to the end.
 
-![image-20220824010111676](image-20220824010111676.png)
+<img src="image-20220824010929106.png" alt="image-20220824010929106" style="zoom: 80%;" />
+
+
+
+
 
 ### Product Details Display
 
 <img src="image-20220824010148579.png" alt="image-20220824010148579" style="zoom:33%;" />
 
-Cart and Order Summary
+
+
+
+
+### Cart and Order Summary
 
 <img src="image-20220824010256715.png" alt="image-20220824010256715" style="zoom: 50%;" />
