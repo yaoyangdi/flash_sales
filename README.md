@@ -66,3 +66,7 @@ The flash-sale activity with its products will disappear once its corresponding 
 ### Cart and Order Summary
 
 <img src="image-20220824010256715.png" alt="image-20220824010256715" style="zoom: 50%;" />
+
+### Register & Login Validation
+
+<img src="image-20220824012820191.png" alt="image-20220824012820191" style="zoom:67%;" />
