@@ -93,7 +93,7 @@ const NewProduct = () => {
             placeholder: "Display picture",
             ref: DisplayPictureRef,
             label: "Display Picture",
-            required: true,
+            required: false,
         }
         ];
 
@@ -108,7 +108,7 @@ const NewProduct = () => {
         const data = new FormData(e.target);
         console.log(Object.fromEntries(data.entries()))
         try{
-            fetch("http://localhost:8080/product", {
+            fetch("https://flashsales-api.herokuapp.com/product", {
                 method: "POST",
                 body: data
             })

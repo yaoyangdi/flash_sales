@@ -3,6 +3,8 @@ import styled from "styled-components"
 // import { flashsales } from "../assets/data.js";
 import Countdown from "./Countdown.jsx";
 import Product from "./Product";
+import { sortByStartTime } from "../helpers/index.js";
+import { FLASHSALE_API } from "../assets/data.js";
 
 const Container = styled.div`
     padding: 0px 30px;
@@ -36,50 +38,51 @@ const Flashsale = () => {
         }
     }
 
-let start_time = new Date(flashsaleList!==null && flashsaleList[id].startTime).getTime();
+let start_time = new Date(flashsaleList !== null && flashsaleList[id].startTime).getTime();
 const curr = new Date().getTime();
 
-const fetchData =  () => fetch('http://localhost:8080/flashsale')
+const fetchData =  () => fetch(FLASHSALE_API)
 .then(response => response.json())
 .then(data => {
   const result = []
   data.message.forEach((product)=> {
     result.push(product);
   })
-  setFlashsaleList(result);
+  setFlashsaleList(sortByStartTime(result));
 });
 
 /* UseEffect (ComponentDidMount) */
 useEffect(() => {
   fetchData();
-},[]); // empty dependency array means this effect will only run once (like componentDidMount in classes)
 
+},[]); // empty dependency array means this effect will only run once (like componentDidMount in classes)
 
   return (
     <Container>
       <Title>Flash Sales</Title>
       <CountdownContainer>
-        {flashsaleList!=null && flashsaleList.map((flashsale) => (
+        {flashsaleList!==null && flashsaleList.map((flashsale, index) => (
             flashsale.status === 1 
             ? (
-                <Countdown handleClick={handleClick()} 
-                key={flashsale.id} 
-                id={flashsale.id} 
-                startTime={flashsale.startTime} 
-                endTime={flashsale.endTime}/>
-                )
+              <Countdown handleClick={handleClick()} 
+                  key={flashsale.id} 
+                  id={index} 
+                  startTime={flashsale.startTime} 
+                  endTime={flashsale.endTime}/>
+              )
             : (
                 null
             )
-                 
             ))}
+
+           
       </CountdownContainer>
 
       <Products>
         {
             ( ( curr - start_time) >= 0 ) ?
-            flashsaleList!=null && flashsaleList[id].products.map((prod)=>(
-                <Product prod={prod} key={prod.id}/>
+            flashsaleList!==null && flashsaleList[id].products.map((prod, index)=>(
+                <Product prod={prod} key={prod.id} id={index}/>
             )) : null
         }
       </Products>

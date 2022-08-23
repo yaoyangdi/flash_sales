@@ -5,6 +5,7 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import FlashOnIcon from '@mui/icons-material/FlashOn';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FLASHSALE_PROCESS, CART_API } from "../assets/data";
 
 const Container = styled.div`
     margin:15px;
@@ -108,14 +109,14 @@ const Button = styled.div`
 const Product = ({prod}) => {
     const navigate = useNavigate();
 
-    const processFlashsale = (id) => fetch(`http://localhost:8080/flashsale/process?id=${id}`, {
+    const processFlashsale = (id) => fetch(`${FLASHSALE_PROCESS}?id=${id}`, {
         method: "PUT",
         })
         .then(response => response.json())
         .then((res) => res.success ? onSuccessProceed() : alert(res.message));
 
     const onAddToCart = (id) => {
-        fetch("http://localhost:8080/cart?token=4028b881828388fb0182838cfc2b0003", {
+        fetch(`${CART_API}?token=4028b881828388fb0182838cfc2b0003`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({"productId": id, "qty": 1})

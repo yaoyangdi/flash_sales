@@ -111,7 +111,7 @@ const NewFlashSale = () => {
         console.log(Object.fromEntries(data.entries()))
 
 
-        fetch("http://localhost:8080/flashsale", {
+        fetch("https://flashsales-api.herokuapp.com/flashsale", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(Object.fromEntries(data.entries()))

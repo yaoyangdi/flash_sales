@@ -3,6 +3,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import Badge from '@mui/material/Badge';
 import { useEffect, useState } from 'react';
+import {CART_API} from "../assets/data";
 
 const Container = styled.div`
     height: 70px;
@@ -68,7 +69,7 @@ const Navbar = () => {
     const handleSearch = () => {};
     const [cartList, setCartList] = useState([]);
 
-    const fetchData =  () => fetch('http://localhost:8080/cart?token=4028b881828388fb0182838cfc2b0003')
+    const fetchData =  () => fetch(CART_API)
     .then(response => response.json())
     .then(data => {
       const result = []
@@ -81,8 +82,8 @@ const Navbar = () => {
     
     /* UseEffect (ComponentDidMount) */
     useEffect(() => {
-      fetchData();
-    }); // empty dependency array means this effect will only run once (like componentDidMount in classes)
+    //   fetchData();   TODO
+    },[]); // empty dependency array means this effect will only run once (like componentDidMount in classes)
 
     let cartAmount = cartList!==[] && cartList.reduce((acc, curr) => acc+curr.qty, 0);
   

@@ -74,7 +74,7 @@ const Countdown = ({id , handleClick, startTime, endTime}) => {
                 setStartstatus(1);   
             }
         }
-
+    
         interval.current = setInterval(()=>{
             const distance = countdownDate - curr;
 
@@ -104,8 +104,9 @@ const Countdown = ({id , handleClick, startTime, endTime}) => {
             clearInterval(interval.current);
         }
     });
+    
   return (
-    <Container color={start_status===1 ? "#facf19" : "rgba(250,207,25,.6)"} hover={start_status===1 ? "#facf19" : "rgba(250,207,25,.6)"} cursor= {start_status===1 ? "pointer" : "auto"} onClick={()=>handleClick(id-1)}>
+    <Container color={start_status===1 ? "#facf19" : "rgba(250,207,25,.6)"} hover={start_status===1 ? "#facf19" : "rgba(250,207,25,.6)"} cursor= {start_status===1 ? "pointer" : "auto"} onClick={()=>handleClick(id)}>
             <DatetimeContainer>
                 <EndTime>{timePieces[0]+":"+timePieces[1]}</EndTime>
                 <EndDate>{datePieces[1]+"/"+datePieces[2]}</EndDate>
@@ -122,7 +123,7 @@ const Countdown = ({id , handleClick, startTime, endTime}) => {
                         </Timer>
                     ) : (
                         <Timer size="20px"> Coming Soon</Timer>
-                    ) 
+                    )
                 )
             }
 

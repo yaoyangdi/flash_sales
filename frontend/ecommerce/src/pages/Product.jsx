@@ -3,6 +3,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { PRODUCT_API, CART_API } from '../assets/data';
 
 const Container = styled.div`
 
@@ -100,35 +101,30 @@ const Button = styled.button`
   }
 `;
 
-const Product = ({}) => {
+const Product = () => {
 
   // useState variables
-  const [productList, setProductList] = useState(null);
+  const [prod, setProd] = useState(null);
   const [amount, setAmount] = useState(0);
   const [size, setSize] = useState("");
   const navigate = useNavigate();
 
+  const params = useParams();
+  const id = params.id;
+  // const product = productList!=null && productList.find((x) => x.id === id);
+
   // GET request using fetch 
-  const fetchData =  () => fetch('http://localhost:8080/product/')
+  const fetchData =  () => fetch(PRODUCT_API)
   .then(response => response.json())
   .then(data => {
-    const result = []
-    data.forEach((product)=> {
-      result.push(product);
-    })
-    setProductList(result);
-    // setProductList(data)  // store the product list
+    const p = data.find((x) => x.id == id);
+    setProd(p);
   });
   
   /* UseEffect (ComponentDidMount) */
   useEffect(() => {
     fetchData();
   }, []); // empty dependency array means this effect will only run once (like componentDidMount in classes)
-
-
-  const params = useParams();
-  const id = params.id-1;
-  const product = productList!=null && productList[id];
 
 
 
@@ -147,7 +143,7 @@ const Product = ({}) => {
       alert("ERROR: Amount should not be empty!")
     } else 
     {
-      fetch("http://localhost:8080/cart?token=4028b881828388fb0182838cfc2b0003", {
+      fetch(CART_API, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({"productId": product.id, "qty": amount, "size": size.value})
@@ -164,7 +160,9 @@ const Product = ({}) => {
   const onFailAdded = () => {
     alert('Adding to cart failed !');
   }
-  
+
+  let product = prod !== null && prod;
+  console.log(id)
   return (
     <Container>
       <Wrapper>

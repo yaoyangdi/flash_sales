@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components"
 import FormInput from "../components/FormInput";
-
+import { USER_SIGNUP } from "../assets/data";
 const Container = styled.div`
     width: 100vw;
     height: 100vh;
@@ -149,7 +149,7 @@ const Register = () => {
         e.preventDefault();  // prevent refresh the page by default
         const data = new FormData(e.target);
         
-        fetch("http://localhost:8080/user/signup", {
+        fetch(USER_SIGNUP, {
             mode: "cors",
             method: "POST",
             headers: {"Content-Type": "application/json"},

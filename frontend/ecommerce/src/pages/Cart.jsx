@@ -3,6 +3,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { useState } from "react";
 import { useEffect } from "react";
+import { CART_API, CART_DECREASE, CART_INCREASE } from "../assets/data";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -131,7 +132,7 @@ const SummaryButton = styled.button`
 const Cart = () => {
     const [cartList, setCartList] = useState([]);
 
-    const fetchData =  () => fetch('http://localhost:8080/cart?token=4028b881828388fb0182838cfc2b0003')
+    const fetchData =  () => fetch(CART_API)
     .then(response => response.json())
     .then(data => {
       const result = []
@@ -145,17 +146,15 @@ const Cart = () => {
     /* UseEffect (ComponentDidMount) */
     useEffect(() => {
       fetchData();
-    }); // empty dependency array means this effect will only run once (like componentDidMount in classes)
+    },[]); // empty dependency array means this effect will only run once (like componentDidMount in classes)
 
     let cartAmount = cartList!==[] && cartList.reduce((acc, curr) => acc+curr.qty, 0);
     let subtotal = cartList!==[] && cartList.reduce((acc, curr) => acc+curr.qty*curr.cartProduct.price, 0).toFixed(2);
 
 
-
-
     /* Method for amount var */
     const onInc = (id) => {
-        fetch(`http://localhost:8080/cart/increase?token=4028b881828388fb0182838cfc2b0003&id=${id}`,
+        fetch(`${CART_INCREASE}&id=${id}`,
         {
             method: "PUT",
         })
@@ -163,19 +162,19 @@ const Cart = () => {
 
     const onDec = (itemAmount, id) => {
         if (itemAmount>1){
-            fetch(`http://localhost:8080/cart/decrease?token=4028b881828388fb0182838cfc2b0003&id=${id}`,
+            fetch(`${CART_DECREASE}&id=${id}`,
             {
                 method: "PUT",
             })
         } else {
             // decrease
-            fetch(`http://localhost:8080/cart/decrease?token=4028b881828388fb0182838cfc2b0003&id=${id}`,
+            fetch(`${CART_DECREASE}&id=${id}`,
             {
                 method: "PUT",
             });
 
             // delete
-            fetch(`http://localhost:8080/cart?token=4028b881828388fb0182838cfc2b0003&id=${id}`,
+            fetch(`${CART_API}&id=${id}`,
             {
                 method: "DELETE",
             })
@@ -205,7 +204,7 @@ const Cart = () => {
                                             <Image src={product.cartProduct.img_url}></Image>
                                             <Details>
                                                 <ProductName><b>Product: </b>{product.cartProduct.title}</ProductName>
-                                                <ProductId><b>ID: </b>{product.cartProduct.id}</ProductId>
+                                                <ProductId><b>ID: </b>{product.id}</ProductId>
                                                 <ProductColor color="black"></ProductColor>
                                                 <ProductSize><b>Size:</b>9.5</ProductSize>
                                             </Details>
