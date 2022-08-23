@@ -21,11 +21,11 @@ It comes with the following **characteristics**:
 
 # Technology Stack
 
-- The front-end web application is built with `ReactJS` framework and `NodeJS`
-- The server is a Linux instance running the `Spring Boot` web development framework
+- The front-end web application is built with `ReactJS` framework and `NodeJS`.
+- The server is a Linux instance running the `Spring Boot` web development framework.
 - `MySQL` database is constructed and connected with back-end server using `Hibernate` as JPA provider and is interacted by calling the functions that match the CRUD operations.
 - `Redis` is utilized as the cache middleware and `Lua Scripting` to reduce the query frequency of MySQL database, prevent overselling, and avoid cache blanks at the beginning of the event.
-- `RocketMQ` is utilized as the message queue to implement peak-load shifting in processing large traffic
+- `RocketMQ` is utilized as the message queue to implement peak-load shifting in processing large traffic.
 
 
 
@@ -42,6 +42,8 @@ The REST web services have been documented using `Swagger`, visit it via [https:
 
 
 # UI Features
+
+Visit it via [https://itsflashsales.netlify.app/](https://itsflashsales.netlify.app/)
 
 ### Countdown Timer for Deals
 
