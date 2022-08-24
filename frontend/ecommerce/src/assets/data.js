@@ -20,11 +20,13 @@ export const sliderItems = [
 
 
 const DOMAIN = "https://flashsales-api.herokuapp.com";
+// const DOMAIN = "http://localhost:8080/";
+
 const TEMP_TOKEN = "2c92816a82c67f980182c68064660000";
 /* CART API */
 export const CART_API =  DOMAIN + "/cart" + "?token=" + TEMP_TOKEN;
-export const CART_INCREASE = CART_API + "/increase";
-export const CART_DECREASE = CART_API + "/decrease";
+export const CART_INCREASE = DOMAIN + "/cart/increase" + "?token=" + TEMP_TOKEN;
+export const CART_DECREASE = DOMAIN + "/cart/decrease" + "?token=" + TEMP_TOKEN;
 
 /* USER API */
 export const USER_API = DOMAIN + "/user";

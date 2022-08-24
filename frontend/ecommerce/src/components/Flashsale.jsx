@@ -56,7 +56,7 @@ useEffect(() => {
   fetchData();
 
 },[]); // empty dependency array means this effect will only run once (like componentDidMount in classes)
-
+  console.log(flashsaleList)
   return (
     <Container>
       <Title>Flash Sales</Title>

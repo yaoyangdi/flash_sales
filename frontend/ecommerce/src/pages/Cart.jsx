@@ -4,6 +4,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import { useState } from "react";
 import { useEffect } from "react";
 import { CART_API, CART_DECREASE, CART_INCREASE } from "../assets/data";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -130,6 +131,7 @@ const SummaryButton = styled.button`
 
 
 const Cart = () => {
+    const navigate = useNavigate();
     const [cartList, setCartList] = useState([]);
 
     const fetchData =  () => fetch(CART_API)
@@ -151,14 +153,29 @@ const Cart = () => {
     let cartAmount = cartList!==[] && cartList.reduce((acc, curr) => acc+curr.qty, 0);
     let subtotal = cartList!==[] && cartList.reduce((acc, curr) => acc+curr.qty*curr.cartProduct.price, 0).toFixed(2);
 
-
+    /* Method for refreshing Page */
+    function refreshPage() {
+        window.location.reload(false);
+      }
+      
     /* Method for amount var */
     const onInc = (id) => {
         fetch(`${CART_INCREASE}&id=${id}`,
         {
             method: "PUT",
         })
+        .then(response => response.json())
+        .then((res) => res.success ? onSuccessAdded() : alert("Sorry, adding failed :("))
     };
+
+    const onSuccessAdded = () => {
+        alert("Adding successfully!");
+        refreshPage();
+    }
+    const onSuccessDelete = () => {
+        alert("Removing successfully!");
+        refreshPage();
+    }
 
     const onDec = (itemAmount, id) => {
         if (itemAmount>1){
@@ -166,6 +183,9 @@ const Cart = () => {
             {
                 method: "PUT",
             })
+            .then(response => response.json())
+            .then((res) => res.success ? onSuccessDelete() : alert("Sorry, removing failed :("))
+
         } else {
             // decrease
             fetch(`${CART_DECREASE}&id=${id}`,
@@ -178,6 +198,8 @@ const Cart = () => {
             {
                 method: "DELETE",
             })
+            .then(response => response.json())
+            .then((res) => res.success ? onSuccessDelete() : alert("Sorry, removing failed :("))
         };
     }
 

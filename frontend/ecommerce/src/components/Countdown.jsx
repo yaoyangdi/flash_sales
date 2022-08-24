@@ -54,7 +54,6 @@ const Countdown = ({id , handleClick, startTime, endTime}) => {
     const [minutes, setMinutes] = useState("00");
     const [seconds, setSeconds] = useState("00");
     const [start_status, setStartstatus ] = useState(0);
-
     let dateComponents = startTime.split('T');
     let datePieces = dateComponents[0].split("-");
     let timePieces = dateComponents[1].split(":");
