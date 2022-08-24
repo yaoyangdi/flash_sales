@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FlashsaleProductRepository extends JpaRepository<Flashsale_product, Long> {
     Flashsale_product findByProduct(Product product);
+    Flashsale_product findById(long id);
 }

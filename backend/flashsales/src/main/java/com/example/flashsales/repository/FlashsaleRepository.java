@@ -7,4 +7,6 @@ import java.util.Date;
 
 public interface FlashsaleRepository extends JpaRepository<Flashsale, Long> {
     Flashsale findByStartTimeAndEndTime(Date startTime, Date endTime);
+    Flashsale findById(long id);
+
 }

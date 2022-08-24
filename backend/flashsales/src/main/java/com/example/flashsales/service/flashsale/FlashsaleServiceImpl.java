@@ -13,12 +13,16 @@ import com.example.flashsales.repository.ProductRepository;
 import com.example.flashsales.service.flashsale.FlashsaleService;
 import com.example.flashsales.service.product.ProductService;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class FlashsaleServiceImpl implements FlashsaleService {
@@ -73,5 +77,65 @@ public class FlashsaleServiceImpl implements FlashsaleService {
     @Override
     public List<Flashsale> getAllFlashsales() {
         return flashsaleRepository.findAll();
+    }
+
+    @Override
+    public ResponseDto processFlashsale(long fp_id) {
+        // validate if product exist in the database
+        Flashsale_product byId = flashsaleProductRepository.findById(fp_id);
+        if (Objects.isNull(byId)){
+            throw new CustomException("Product not exist");
+        } else {
+            long availableStock = byId.getAvailableStock();
+            if (availableStock > 0) {
+                byId.setAvailableStock(availableStock-1);
+                flashsaleProductRepository.save(byId);
+
+                return new ResponseDto("true", "Proceed successfully!");
+            } else {
+                throw new CustomException("Sorry, this product already sold out :(");
+            }
+        }
+    }
+
+    @Override
+    public ResponseDto updateStatus(long id, int status) {
+        // validate if flash sale exist in the database
+        Flashsale byId = flashsaleRepository.findById(id);
+        if (Objects.isNull(byId)){
+            throw new CustomException("Flashsale not exist!");
+        } else {
+            byId.setStatus(status);
+            flashsaleRepository.save(byId);
+            return new ResponseDto("true", "Update status successfully!");
+        }
+    }
+
+    @Override
+    public ResponseDto updateStartTime(long id, String startTime) throws ParseException {
+        // validate if flash sale exist in the database
+        Flashsale byId = flashsaleRepository.findById(id);
+        if (Objects.isNull(byId)){
+            throw new CustomException("Flashsale not exist!");
+        } else {
+            Date st = new SimpleDateFormat("yyyy/MM/dd hh:mm").parse(startTime);
+            byId.setStartTime(st);
+            flashsaleRepository.save(byId);
+            return new ResponseDto("true", "Update start time successfully!");
+        }
+    }
+
+    @Override
+    public ResponseDto updateEndTime(long id, String endTime) throws ParseException {
+        // validate if flash sale exist in the database
+        Flashsale byId = flashsaleRepository.findById(id);
+        if (Objects.isNull(byId)){
+            throw new CustomException("Flashsale not exist!");
+        } else {
+            Date et = new SimpleDateFormat("yyyy/MM/dd hh:mm").parse(endTime);
+            byId.setStartTime(et);
+            flashsaleRepository.save(byId);
+            return new ResponseDto("true", "Update end time successfully!");
+        }
     }
 }

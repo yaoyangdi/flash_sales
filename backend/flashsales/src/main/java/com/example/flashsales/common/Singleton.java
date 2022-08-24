@@ -11,9 +11,9 @@ public class Singleton {
     private Singleton() {
         this.cloudinary =  new Cloudinary(
                 ObjectUtils.asMap(
-                        "cloud_name", System.getenv("cloudName"),
-                        "api_key", System.getenv("apiKey"),
-                        "api_secret", System.getenv("apiSecret"),
+                        "cloud_name", System.getenv("CLOUD_NAME"),
+                        "api_key", System.getenv("CLOUD_API_KEY"),
+                        "api_secret", System.getenv("CLOUD_API_SECRET"),
                         "secure", true)
         );
     }

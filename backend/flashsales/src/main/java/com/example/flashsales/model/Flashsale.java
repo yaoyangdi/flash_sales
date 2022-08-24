@@ -17,7 +17,7 @@ import java.util.*;
 @NoArgsConstructor
 public class Flashsale {
     public Flashsale(Date startTime, Date endTime) {
-        this.status = 0;   // 0: normal, 1: ready
+        this.status = 1;   // 0: normal, 1: ready
         this.startTime = startTime;
         this.endTime = endTime;
     }

@@ -28,11 +28,11 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product findById(long productId) {
-        Optional<Product> optionalProduct= productRepository.findById(productId);
-        if (optionalProduct.isEmpty()){
+        Product byId = productRepository.findById(productId);
+        if (Objects.isNull(byId)){
             throw new CustomException("Product id is invalid!");
         }
-        return optionalProduct.get();
+        return byId;
     }
 
     @Override
