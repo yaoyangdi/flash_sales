@@ -26,7 +26,7 @@ const CountdownContainer = styled.div`
     width: 100%;
 `;
 
-const Flashsale = () => {
+const Flashsale = ({setLoading, setProgress}) => {
     const [id, setId] = useState(0);
     const [flashsaleList, setFlashsaleList] = useState(null);
 
@@ -41,20 +41,33 @@ const Flashsale = () => {
 let start_time = new Date(flashsaleList !== null && flashsaleList[id].startTime).getTime();
 const curr = new Date().getTime();
 
-const fetchData =  () => fetch(FLASHSALE_API)
-.then(response => response.json())
-.then(data => {
-  const result = []
-  data.message.forEach((product)=> {
-    result.push(product);
-  })
-  setFlashsaleList(sortByStartTime(result));
-});
+const fetchData =  () => 
+{
+  setLoading(true); // on loading
+
+  fetch(FLASHSALE_API)
+    .then(response => response.json())
+    .then(data => {
+      const result = []
+      data.message.forEach((product)=> {
+        result.push(product);
+      })
+      setFlashsaleList(sortByStartTime(result));
+    })
+    .finally(() => {
+      setLoading(false);
+    })
+  };
 
 /* UseEffect (ComponentDidMount) */
 useEffect(() => {
   fetchData();
-
+  const timer = setInterval(() => {
+    setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 10));
+  }, 800);
+  return () => {
+    clearInterval(timer);
+  };
 },[]); // empty dependency array means this effect will only run once (like componentDidMount in classes)
   console.log(flashsaleList)
   return (
